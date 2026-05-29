@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
 
 import DashboardLayout from "../layouts/DashboardLayout";
+import { AnalyticsContext } from "../context/AnalyticsContext";
 
 const Upload = () => {
 
@@ -9,7 +10,7 @@ const Upload = () => {
 
   const [loading, setLoading] = useState(false);
 
-  const [analytics, setAnalytics] = useState(null);
+  const { analytics, setAnalytics } = useContext(AnalyticsContext);
 
   const handleFileChange = (event) => {
 
@@ -255,3 +256,4 @@ const Upload = () => {
 };
 
 export default Upload;
+

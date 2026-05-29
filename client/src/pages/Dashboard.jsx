@@ -1,50 +1,88 @@
+import { useContext } from "react";
+
 import DashboardLayout from "../layouts/DashboardLayout";
-import KpiCard from "../components/KpiCard";
-import ChartCard from "../components/ChartCard";
+
+import AnalyticsCards from "../components/AnalyticsCards";
+
+import SalesBarChart from "../charts/SalesBarChart";
+import RevenueLineChart from "../charts/RevenueLineChart";
+import DataDistributionChart from "../charts/DataDistributionChart";
+
+import { AnalyticsContext } from "../context/AnalyticsContext";
+
+import { generateChartData } from "../utils/chartData";
 
 const Dashboard = () => {
+
+  const { analytics } = useContext(
+    AnalyticsContext
+  );
+
+  if (!analytics) {
+
+    return (
+
+      <DashboardLayout>
+
+        <div className="text-center py-20">
+
+          <h1 className="text-4xl font-bold mb-4">
+            No Dataset Uploaded
+          </h1>
+
+          <p className="text-gray-500">
+            Upload a dataset first to see analytics.
+          </p>
+
+        </div>
+
+      </DashboardLayout>
+
+    );
+
+  }
+
+  const chartData =
+    generateChartData(analytics);
+
   return (
+
     <DashboardLayout>
 
       <div>
 
-        <h1 className="text-4xl font-bold mb-6">
-          Dashboard
+        <h1 className="text-4xl font-bold mb-8">
+          Business Dashboard
         </h1>
 
-        <div className="grid grid-cols-4 gap-6">
+        <AnalyticsCards
+          analytics={analytics}
+        />
 
-          <KpiCard
-            title="Revenue"
-            value="$45,000"
-            color="text-black"
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+          <SalesBarChart
+            data={chartData}
           />
 
-          <KpiCard
-            title="Customers"
-            value="1,250"
-            color="text-blue-600"
-          />
-
-          <KpiCard
-            title="Orders"
-            value="320"
-            color="text-purple-600"
-          />
-
-          <KpiCard
-            title="Growth"
-            value="+18%"
-            color="text-green-600"
+          <RevenueLineChart
+            data={chartData}
           />
 
         </div>
 
-        <ChartCard />
+        <div className="mt-6">
+
+          <DataDistributionChart
+            data={chartData}
+          />
+
+        </div>
 
       </div>
 
     </DashboardLayout>
+
   );
 };
 

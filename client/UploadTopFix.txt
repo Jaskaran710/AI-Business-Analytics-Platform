@@ -1,0 +1,14 @@
+import { useState, useContext } from "react";
+import axios from "axios";
+
+import DashboardLayout from "../layouts/DashboardLayout";
+import { AnalyticsContext } from "../context/AnalyticsContext";
+
+const Upload = () => {
+
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const [loading, setLoading] = useState(false);
+
+  const { analytics, setAnalytics } =
+    useContext(AnalyticsContext);

@@ -10,14 +10,46 @@ import NotFound from "../pages/NotFound";
 const AppRoutes = () => {
   return (
     <BrowserRouter>
+
       <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/upload" element={<Upload />} />
-        <Route path="/ai-insights" element={<AIInsights />} />
-        <Route path="*" element={<NotFound />} />
+
+        <Route
+          path="/"
+          element={<Dashboard />}
+        />
+
+        <Route
+          path="/dashboard"
+          element={<Dashboard />}
+        />
+
+        <Route
+          path="/login"
+          element={<Login />}
+        />
+
+        <Route
+          path="/register"
+          element={<Register />}
+        />
+
+        <Route
+          path="/upload"
+          element={<Upload />}
+        />
+
+        <Route
+          path="/ai-insights"
+          element={<AIInsights />}
+        />
+
+        <Route
+          path="*"
+          element={<NotFound />}
+        />
+
       </Routes>
+
     </BrowserRouter>
   );
 };
