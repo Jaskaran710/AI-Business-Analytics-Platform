@@ -1,53 +1,71 @@
 import { Link } from "react-router-dom";
 
+import {
+  LayoutDashboard,
+  Upload,
+  Brain,
+  MessageSquare,
+  User
+} from "lucide-react";
+
 const Sidebar = () => {
+
   return (
-    <div className="w-64 min-h-screen bg-gray-900 text-white p-5">
-      <h1 className="text-2xl font-bold mb-10">
+
+    <div className="w-72 min-h-screen bg-slate-900 text-white p-6 shadow-2xl">
+
+      <h1 className="text-3xl font-bold mb-10">
         AI Analytics
       </h1>
 
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-3">
 
         <Link
           to="/"
-          className="hover:bg-gray-700 p-3 rounded-lg"
+          className="flex items-center gap-3 hover:bg-slate-800 p-4 rounded-xl transition"
         >
+          <LayoutDashboard size={20} />
           Dashboard
         </Link>
 
         <Link
           to="/upload"
-          className="hover:bg-gray-700 p-3 rounded-lg"
+          className="flex items-center gap-3 hover:bg-slate-800 p-4 rounded-xl transition"
         >
+          <Upload size={20} />
           Upload Dataset
         </Link>
 
         <Link
           to="/ai-insights"
-          className="hover:bg-gray-700 p-3 rounded-lg"
+          className="flex items-center gap-3 hover:bg-slate-800 p-4 rounded-xl transition"
         >
+          <Brain size={20} />
           AI Insights
         </Link>
 
         <Link
           to="/ask-data"
-          className="hover:bg-gray-700 p-3 rounded-lg"
+          className="flex items-center gap-3 hover:bg-slate-800 p-4 rounded-xl transition"
         >
+          <MessageSquare size={20} />
           Ask Your Data
         </Link>
 
         <Link
           to="/login"
-          className="hover:bg-gray-700 p-3 rounded-lg"
+          className="flex items-center gap-3 hover:bg-slate-800 p-4 rounded-xl transition"
         >
+          <User size={20} />
           Login
         </Link>
 
       </div>
+
     </div>
+
   );
+
 };
 
 export default Sidebar;
-

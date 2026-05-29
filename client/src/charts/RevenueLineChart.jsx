@@ -16,20 +16,28 @@ const RevenueLineChart = ({ data }) => {
 
   return (
 
-    <div className="bg-white p-6 rounded-xl shadow-md">
+    <div className="bg-white p-8 rounded-2xl shadow-xl border">
 
-      <h2 className="text-2xl font-bold mb-6">
+      <h2 className="text-2xl font-bold text-slate-800 mb-2">
         Revenue Trend
       </h2>
+
+      <p className="text-gray-500 mb-6">
+        Performance trend across metrics
+      </p>
 
       <ResponsiveContainer
         width="100%"
         height={350}
       >
 
-        <LineChart data={data}>
+        <LineChart
+          data={data}
+        >
 
-          <CartesianGrid strokeDasharray="3 3" />
+          <CartesianGrid
+            strokeDasharray="4 4"
+          />
 
           <XAxis dataKey="name" />
 
@@ -40,6 +48,9 @@ const RevenueLineChart = ({ data }) => {
           <Line
             type="monotone"
             dataKey="value"
+            stroke="#10b981"
+            strokeWidth={3}
+            dot={{ r: 5 }}
           />
 
         </LineChart>

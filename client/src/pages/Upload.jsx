@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 import DashboardLayout from "../layouts/DashboardLayout";
 import { AnalyticsContext } from "../context/AnalyticsContext";
@@ -35,13 +36,20 @@ const Upload = () => {
   const handleUpload = async () => {
 
     if (!selectedFile) {
-      alert("Please select a file first");
+      toast.error("Please select a file first");
       return;
     }
 
     try {
 
       setLoading(true);
+
+      toast.loading(
+        "Uploading dataset...",
+        {
+          id: "upload"
+        }
+      );
 
       const formData = new FormData();
 
@@ -54,13 +62,23 @@ const Upload = () => {
 
       setAnalytics(response.data.analytics);
 
-      alert(response.data.message);
+      toast.success(
+  "Dataset uploaded successfully",
+  {
+    id: "upload"
+  }
+);
 
     } catch (error) {
 
       console.error(error);
 
-      alert("Upload failed");
+      toast.error(
+  "Upload failed",
+  {
+    id: "upload"
+  }
+);
 
     } finally {
 
@@ -109,7 +127,8 @@ const Upload = () => {
 
             <button
               onClick={handleUpload}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold"
+              disabled={loading}
+              className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white px-6 py-3 rounded-xl font-semibold flex items-center gap-2"
             >
               {
                 loading
@@ -256,4 +275,10 @@ const Upload = () => {
 };
 
 export default Upload;
+
+
+
+
+
+
 

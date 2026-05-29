@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { Database } from "lucide-react";
 
 import DashboardLayout from "../layouts/DashboardLayout";
 
@@ -29,15 +30,36 @@ const Dashboard = () => {
 
       <DashboardLayout>
 
-        <div className="text-center py-20">
+        <div className="flex justify-center items-center py-20">
 
-          <h1 className="text-4xl font-bold mb-4">
-            No Dataset Uploaded
-          </h1>
+          <div className="bg-white shadow-xl rounded-3xl p-12 text-center max-w-xl w-full">
 
-          <p className="text-gray-500">
-            Upload a dataset first to see analytics.
-          </p>
+            <div className="flex justify-center mb-6">
+
+              <Database
+                size={70}
+                className="text-blue-600"
+              />
+
+            </div>
+
+            <h1 className="text-4xl font-bold mb-4 text-slate-800">
+              No Dataset Uploaded
+            </h1>
+
+            <p className="text-gray-500 text-lg mb-8">
+              Upload a CSV or Excel dataset to unlock analytics,
+              insights, charts and AI-powered recommendations.
+            </p>
+
+            <a
+              href="/upload"
+              className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-semibold transition"
+            >
+              Upload Dataset
+            </a>
+
+          </div>
 
         </div>
 
@@ -145,6 +167,8 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+
 
 
 
