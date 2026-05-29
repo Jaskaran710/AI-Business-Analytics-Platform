@@ -1,14 +1,13 @@
 import { useContext } from "react";
 
 import DashboardLayout from "../layouts/DashboardLayout";
-
-import { AnalyticsContext }
-from "../context/AnalyticsContext";
+import { AnalyticsContext } from "../context/AnalyticsContext";
 
 const AIInsights = () => {
 
-  const { analytics } =
-    useContext(AnalyticsContext);
+  const { analytics } = useContext(
+    AnalyticsContext
+  );
 
   if (!analytics) {
 
@@ -34,42 +33,6 @@ const AIInsights = () => {
 
   }
 
-  const insights = [];
-
-  insights.push(
-    `Dataset contains ${analytics.rows} rows and ${analytics.columns} columns.`
-  );
-
-  if (analytics.missing_values === 0) {
-
-    insights.push(
-      "Dataset is clean with no missing values."
-    );
-
-  } else {
-
-    insights.push(
-      `Dataset contains ${analytics.missing_values} missing values.`
-    );
-
-  }
-
-  if (analytics.total_sales) {
-
-    insights.push(
-      `Total sales are ${analytics.total_sales.toFixed(2)}.`
-    );
-
-  }
-
-  if (analytics.average_sales) {
-
-    insights.push(
-      `Average sales are ${analytics.average_sales.toFixed(2)}.`
-    );
-
-  }
-
   return (
 
     <DashboardLayout>
@@ -82,20 +45,27 @@ const AIInsights = () => {
 
         <div className="space-y-4">
 
-          {
-            insights.map(
-              (insight, index) => (
+          <div className="bg-white p-6 rounded-xl shadow-md">
+            Dataset contains {analytics.rows} rows and {analytics.columns} columns.
+          </div>
 
-                <div
-                  key={index}
-                  className="bg-white p-6 rounded-xl shadow-md"
-                >
-                  {insight}
-                </div>
+          <div className="bg-white p-6 rounded-xl shadow-md">
+            Missing Values: {analytics.missing_values}
+          </div>
 
-              )
-            )
-          }
+          <div className="bg-white p-6 rounded-xl shadow-md">
+            Total Sales: {analytics.total_sales ?? "N/A"}
+          </div>
+
+          <div className="bg-white p-6 rounded-xl shadow-md">
+            Average Sales: {analytics.average_sales ?? "N/A"}
+          </div>
+
+          <div className="bg-white p-6 rounded-xl shadow-md">
+            Columns:
+            <br />
+            {analytics.column_names?.join(", ")}
+          </div>
 
         </div>
 
