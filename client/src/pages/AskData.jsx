@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import axios from "axios";
 
 import DashboardLayout from "../layouts/DashboardLayout";
 import { AnalyticsContext } from "../context/AnalyticsContext";
@@ -9,55 +10,45 @@ const AskData = () => {
 
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleAsk = () => {
+  const handleAsk = async () => {
 
-    const q = question.toLowerCase();
+  if (!question.trim()) {
+    return;
+  }
 
-    if (q.includes("rows")) {
-      setAnswer(`Dataset has ${analytics.rows} rows.`);
-    }
-    else if (q.includes("columns")) {
-      setAnswer(`Dataset has ${analytics.columns} columns.`);
-    }
-    else if (q.includes("age")) {
-      setAnswer(`Average age is ${analytics.average_age?.toFixed(2)}.`);
-    }
-    else if (q.includes("wait")) {
-      setAnswer(`Average wait time is ${analytics.average_wait_time?.toFixed(2)}.`);
-    }
-    else if (q.includes("average satisfaction")) {
-      setAnswer(`Average satisfaction is ${analytics.average_satisfaction?.toFixed(2)}.`);
-    }
-    else if (q.includes("highest satisfaction")) {
-      setAnswer(`Highest satisfaction is ${analytics.max_satisfaction?.toFixed(2)}.`);
-    }
-    else if (q.includes("lowest satisfaction")) {
-      setAnswer(`Lowest satisfaction is ${analytics.min_satisfaction?.toFixed(2)}.`);
-    }
-    else if (q.includes("department")) {
+  try {
 
-      const topDepartment =
-        Object.entries(
-          analytics.department_counts || {}
-        ).sort(
-          (a, b) => b[1] - a[1]
-        )[0];
+    setLoading(true);
 
-      if (topDepartment) {
-        setAnswer(
-          `${topDepartment[0]} has the highest referrals (${topDepartment[1]}).`
-        );
-      } else {
-        setAnswer("No department data available.");
+    const response = await axios.post(
+      "http://localhost:5000/api/ai",
+      {
+        question,
+        analytics
       }
+    );
 
-    }
-    else {
-      setAnswer("Question not recognized.");
-    }
+    setAnswer(
+      response.data.answer
+    );
 
-  };
+  } catch (error) {
+
+    console.error(error);
+
+    setAnswer(
+      "Failed to get AI response."
+    );
+
+  } finally {
+
+    setLoading(false);
+
+  }
+
+};
 
   return (
     <DashboardLayout>
@@ -73,9 +64,14 @@ const AskData = () => {
 
         <button
           onClick={handleAsk}
-          className="mt-4 px-6 py-3 bg-black text-white rounded"
+          disabled={loading}
+          className="mt-4 px-6 py-3 bg-black text-white rounded disabled:bg-gray-400"
         >
-          Ask
+          {
+            loading
+              ? "Thinking..."
+              : "Ask"
+          }
         </button>
 
         <div className="mt-6 text-xl">
@@ -88,4 +84,8 @@ const AskData = () => {
 };
 
 export default AskData;
+
+
+
+
 
