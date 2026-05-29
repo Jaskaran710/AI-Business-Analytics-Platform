@@ -26,6 +26,33 @@ const AskData = () => {
     else if (q.includes("wait")) {
       setAnswer(`Average wait time is ${analytics.average_wait_time?.toFixed(2)}.`);
     }
+    else if (q.includes("average satisfaction")) {
+      setAnswer(`Average satisfaction is ${analytics.average_satisfaction?.toFixed(2)}.`);
+    }
+    else if (q.includes("highest satisfaction")) {
+      setAnswer(`Highest satisfaction is ${analytics.max_satisfaction?.toFixed(2)}.`);
+    }
+    else if (q.includes("lowest satisfaction")) {
+      setAnswer(`Lowest satisfaction is ${analytics.min_satisfaction?.toFixed(2)}.`);
+    }
+    else if (q.includes("department")) {
+
+      const topDepartment =
+        Object.entries(
+          analytics.department_counts || {}
+        ).sort(
+          (a, b) => b[1] - a[1]
+        )[0];
+
+      if (topDepartment) {
+        setAnswer(
+          `${topDepartment[0]} has the highest referrals (${topDepartment[1]}).`
+        );
+      } else {
+        setAnswer("No department data available.");
+      }
+
+    }
     else {
       setAnswer("Question not recognized.");
     }
@@ -61,3 +88,4 @@ const AskData = () => {
 };
 
 export default AskData;
+

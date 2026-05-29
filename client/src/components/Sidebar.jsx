@@ -31,6 +31,13 @@ const Sidebar = () => {
         </Link>
 
         <Link
+          to="/ask-data"
+          className="hover:bg-gray-700 p-3 rounded-lg"
+        >
+          Ask Your Data
+        </Link>
+
+        <Link
           to="/login"
           className="hover:bg-gray-700 p-3 rounded-lg"
         >
@@ -43,3 +50,4 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+

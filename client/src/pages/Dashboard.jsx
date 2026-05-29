@@ -56,9 +56,22 @@ const Dashboard = () => {
 
       <div>
 
-        <h1 className="text-4xl font-bold mb-8">
-          Business Dashboard
-        </h1>
+        <div className="flex justify-between items-center mb-8">
+
+          <h1 className="text-4xl font-bold">
+            Business Dashboard
+          </h1>
+
+          <a
+            href="http://localhost:5000/api/report"
+            target="_blank"
+            rel="noreferrer"
+            className="bg-black text-white px-6 py-3 rounded-lg"
+          >
+            Export PDF Report
+          </a>
+
+        </div>
 
         <AnalyticsCards
           analytics={analytics}
@@ -132,6 +145,7 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
 
 
 
