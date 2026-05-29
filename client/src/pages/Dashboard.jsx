@@ -3,6 +3,8 @@ import { useContext } from "react";
 import DashboardLayout from "../layouts/DashboardLayout";
 
 import AnalyticsCards from "../components/AnalyticsCards";
+import DatasetPreview from "../components/DatasetPreview";
+import SummaryStatistics from "../components/SummaryStatistics";
 
 import SalesBarChart from "../charts/SalesBarChart";
 import RevenueLineChart from "../charts/RevenueLineChart";
@@ -80,6 +82,14 @@ const Dashboard = () => {
 
         </div>
 
+        <div className="mt-6">
+
+          <DatasetPreview
+            previewData={analytics.preview_data}
+          />
+
+        </div>
+
       </div>
 
     </DashboardLayout>
@@ -88,5 +98,12 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+
+
+
+
+
+
 
 
