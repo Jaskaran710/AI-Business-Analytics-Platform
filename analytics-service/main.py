@@ -15,8 +15,6 @@ async def analyze_file(file: UploadFile = File(...)):
 
     filename = file.filename.lower()
 
-    # READ FILE
-
     if filename.endswith(".csv"):
 
         df = pd.read_csv(file.file)
@@ -30,8 +28,6 @@ async def analyze_file(file: UploadFile = File(...)):
         return {
             "error": "Unsupported file type"
         }
-
-    # CLEAN DATA
 
     df = df.drop_duplicates()
 
@@ -49,23 +45,62 @@ async def analyze_file(file: UploadFile = File(...)):
 
     column_names = list(df.columns)
 
-    # NUMERIC ANALYTICS
-
-    numeric_columns = df.select_dtypes(include='number')
+    numeric_columns = df.select_dtypes(include="number")
 
     summary_stats = numeric_columns.describe().fillna(0).to_dict()
 
     preview_data = df.head(5).replace(np.nan, 0).to_dict(orient="records")
 
     total_sales = None
-
     average_sales = None
+
+    average_age = None
+    average_wait_time = None
+    average_satisfaction = None
+    max_satisfaction = None
+    min_satisfaction = None
+
+    department_counts = None
 
     if "sales" in df.columns:
 
         total_sales = float(df["sales"].sum())
 
         average_sales = float(df["sales"].mean())
+
+    if "Patient Age" in df.columns:
+
+        average_age = float(
+            df["Patient Age"].mean()
+        )
+
+    if "Patient Waittime" in df.columns:
+
+        average_wait_time = float(
+            df["Patient Waittime"].mean()
+        )
+
+    if "Patient Satisfaction Score" in df.columns:
+
+        average_satisfaction = float(
+            df["Patient Satisfaction Score"].mean()
+        )
+
+        max_satisfaction = float(
+            df["Patient Satisfaction Score"].max()
+        )
+
+        min_satisfaction = float(
+            df["Patient Satisfaction Score"].min()
+        )
+
+    if "Department Referral" in df.columns:
+
+        department_counts = (
+            df["Department Referral"]
+            .value_counts()
+            .to_dict()
+        )
 
     return {
         "rows": rows,
@@ -74,6 +109,21 @@ async def analyze_file(file: UploadFile = File(...)):
         "missing_values": missing_values,
         "summary_statistics": summary_stats,
         "preview_data": preview_data,
+
         "total_sales": total_sales,
-        "average_sales": average_sales
+        "average_sales": average_sales,
+
+        "average_age": average_age,
+        "average_wait_time": average_wait_time,
+        "average_satisfaction": average_satisfaction,
+        "max_satisfaction": max_satisfaction,
+        "min_satisfaction": min_satisfaction,
+
+        "department_counts": department_counts
     }
+
+
+
+
+
+
