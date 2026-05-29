@@ -5,6 +5,9 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import AnalyticsCards from "../components/AnalyticsCards";
 import DatasetPreview from "../components/DatasetPreview";
 import SummaryStatistics from "../components/SummaryStatistics";
+import DepartmentAnalytics from "../components/DepartmentAnalytics";
+import PatientSatisfaction from "../components/PatientSatisfaction";
+import AIRecommendations from "../components/AIRecommendations";
 
 import SalesBarChart from "../charts/SalesBarChart";
 import RevenueLineChart from "../charts/RevenueLineChart";
@@ -19,7 +22,6 @@ const Dashboard = () => {
   const { analytics } = useContext(
     AnalyticsContext
   );
-
 
   if (!analytics) {
 
@@ -90,6 +92,38 @@ const Dashboard = () => {
 
         </div>
 
+        <div className="mt-6">
+
+          <SummaryStatistics
+            statistics={analytics.summary_statistics}
+          />
+
+        </div>
+
+        <div className="mt-6">
+
+          <DepartmentAnalytics
+            departmentCounts={analytics.department_counts}
+          />
+
+        </div>
+
+        <div className="mt-6">
+
+          <PatientSatisfaction
+            analytics={analytics}
+          />
+
+        </div>
+
+        <div className="mt-6">
+
+          <AIRecommendations
+            analytics={analytics}
+          />
+
+        </div>
+
       </div>
 
     </DashboardLayout>
@@ -98,9 +132,6 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-
-
 
 
 
