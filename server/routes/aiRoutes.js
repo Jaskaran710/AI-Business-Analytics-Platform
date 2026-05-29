@@ -1,5 +1,6 @@
 const express = require("express");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
+const Chat = require("../models/Chat");
 
 const router = express.Router();
 
@@ -37,6 +38,13 @@ Provide a concise business insight.
     const answer =
       result.response.text();
 
+    await Chat.create({
+      question,
+      answer
+    });
+
+    console.log("Chat Saved");
+
     res.json({
       answer
     });
@@ -47,6 +55,27 @@ Provide a concise business insight.
 
     res.status(500).json({
       error: "AI analysis failed"
+    });
+
+  }
+
+});
+
+router.get("/history", async (req, res) => {
+
+  try {
+
+    const chats = await Chat.find()
+      .sort({ createdAt: -1 });
+
+    res.json(chats);
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      error: "Failed to fetch chats"
     });
 
   }
