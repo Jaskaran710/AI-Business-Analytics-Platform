@@ -8,6 +8,7 @@ console.log("Gemini Key Loaded:", !!process.env.GEMINI_API_KEY);
 
 const uploadRoutes = require("./routes/uploadRoutes");
 const aiRoutes = require("./routes/aiRoutes");
+const authRoutes = require("./routes/authRoutes");
 const connectDB = require("./config/db");
 
 connectDB();
@@ -19,6 +20,7 @@ app.use(express.json());
 
 app.use("/api/upload", uploadRoutes);
 app.use("/api/ai", aiRoutes);
+app.use("/api/auth", authRoutes);
 
 app.get("/api/report", (req, res) => {
 
@@ -63,6 +65,8 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+
 
 
 
