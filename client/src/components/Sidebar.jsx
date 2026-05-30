@@ -5,7 +5,8 @@ import {
   Upload,
   Brain,
   MessageSquare,
-  User
+  User,
+  History
 } from "lucide-react";
 
 const Sidebar = () => {
@@ -53,6 +54,14 @@ const Sidebar = () => {
         </Link>
 
         <Link
+          to="/chat-history"
+          className="flex items-center gap-3 hover:bg-slate-800 p-4 rounded-xl transition"
+        >
+          <History size={20} />
+          Chat History
+        </Link>
+
+        <Link
           to="/login"
           className="flex items-center gap-3 hover:bg-slate-800 p-4 rounded-xl transition"
         >
@@ -69,3 +78,5 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+
+

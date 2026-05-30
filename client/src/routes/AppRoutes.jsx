@@ -6,6 +6,7 @@ import Register from "../pages/Register";
 import Upload from "../pages/Upload";
 import AIInsights from "../pages/AIInsights";
 import AskData from "../pages/AskData";
+import ChatHistory from "../pages/ChatHistory";
 import NotFound from "../pages/NotFound";
 
 const AppRoutes = () => {
@@ -50,6 +51,11 @@ const AppRoutes = () => {
         />
 
         <Route
+          path="/chat-history"
+          element={<ChatHistory />}
+        />
+
+        <Route
           path="*"
           element={<NotFound />}
         />
@@ -61,5 +67,7 @@ const AppRoutes = () => {
 };
 
 export default AppRoutes;
+
+
 
 
