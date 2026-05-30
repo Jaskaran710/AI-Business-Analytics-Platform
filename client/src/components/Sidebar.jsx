@@ -7,6 +7,7 @@ import {
   MessageSquare,
   User,
   History,
+  Database,
   LogOut
 } from "lucide-react";
 
@@ -72,7 +73,13 @@ const Sidebar = () => {
           <History size={20} />
           Chat History
         </Link>
-
+	<Link
+  to="/dataset-history"
+  className="flex items-center gap-3 hover:bg-slate-800 p-4 rounded-xl transition"
+>
+  <Database size={20} />
+  Dataset History
+</Link>
         <button
           onClick={handleLogout}
           className="flex items-center gap-3 hover:bg-red-700 p-4 rounded-xl transition text-left"
@@ -98,3 +105,4 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+

@@ -56,9 +56,16 @@ const Upload = () => {
       formData.append("file", selectedFile);
 
       const response = await axios.post(
-        "http://localhost:5000/api/upload",
-        formData
-      );
+  "http://localhost:5000/api/upload",
+  formData,
+  {
+    headers: {
+      Authorization: `Bearer ${
+        localStorage.getItem("token")
+      }`
+    }
+  }
+);
 
       setAnalytics(response.data.analytics);
 

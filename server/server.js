@@ -1,15 +1,30 @@
 const express = require("express");
 const cors = require("cors");
-const PDFDocument = require("pdfkit");
 
 require("dotenv").config();
 
-console.log("Gemini Key Loaded:", !!process.env.GEMINI_API_KEY);
+console.log(
+  "Gemini Key Loaded:",
+  !!process.env.GEMINI_API_KEY
+);
 
-const uploadRoutes = require("./routes/uploadRoutes");
-const aiRoutes = require("./routes/aiRoutes");
-const authRoutes = require("./routes/authRoutes");
-const connectDB = require("./config/db");
+const uploadRoutes =
+  require("./routes/uploadRoutes");
+
+const aiRoutes =
+  require("./routes/aiRoutes");
+
+const authRoutes =
+  require("./routes/authRoutes");
+
+const datasetRoutes =
+  require("./routes/datasetRoutes");
+
+const reportRoutes =
+  require("./routes/reportRoutes");
+
+const connectDB =
+  require("./config/db");
 
 connectDB();
 
@@ -18,55 +33,52 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/upload", uploadRoutes);
-app.use("/api/ai", aiRoutes);
-app.use("/api/auth", authRoutes);
+app.use(
+  "/api/upload",
+  uploadRoutes
+);
 
-app.get("/api/report", (req, res) => {
+app.use(
+  "/api/ai",
+  aiRoutes
+);
 
-  const doc = new PDFDocument();
+app.use(
+  "/api/auth",
+  authRoutes
+);
 
-  res.setHeader(
-    "Content-Type",
-    "application/pdf"
-  );
+app.use(
+  "/api/datasets",
+  datasetRoutes
+);
 
-  res.setHeader(
-    "Content-Disposition",
-    "attachment; filename=analytics-report.pdf"
-  );
+app.use(
+  "/api/report",
+  reportRoutes
+);
 
-  doc.pipe(res);
+app.get(
+  "/",
+  (req, res) => {
 
-  doc.fontSize(24)
-     .text("AI Business Analytics Report");
+    res.send(
+      "Backend Server Running"
+    );
 
-  doc.moveDown();
+  }
+);
 
-  doc.fontSize(14)
-     .text("Generated Successfully");
+const PORT =
+  process.env.PORT || 5000;
 
-  doc.moveDown();
+app.listen(
+  PORT,
+  () => {
 
-  doc.text(
-    `Generated: ${new Date().toLocaleString()}`
-  );
+    console.log(
+      `Server running on port ${PORT}`
+    );
 
-  doc.end();
-
-});
-
-app.get("/", (req, res) => {
-  res.send("Backend Server Running");
-});
-
-const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
-
-
-
-
-
+  }
+);

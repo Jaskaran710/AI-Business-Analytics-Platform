@@ -8,6 +8,7 @@ import AIInsights from "../pages/AIInsights";
 import AskData from "../pages/AskData";
 import ChatHistory from "../pages/ChatHistory";
 import ProtectedRoute from "../components/ProtectedRoute";
+import DatasetHistory from "../pages/DatasetHistory";
 import NotFound from "../pages/NotFound";
 
 const AppRoutes = () => {
@@ -17,8 +18,6 @@ const AppRoutes = () => {
     <BrowserRouter>
 
       <Routes>
-
-        {/* Protected Routes */}
 
         <Route
           path="/"
@@ -74,7 +73,14 @@ const AppRoutes = () => {
           }
         />
 
-        {/* Public Routes */}
+        <Route
+          path="/dataset-history"
+          element={
+            <ProtectedRoute>
+              <DatasetHistory />
+            </ProtectedRoute>
+          }
+        />
 
         <Route
           path="/login"
