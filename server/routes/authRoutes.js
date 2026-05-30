@@ -83,7 +83,7 @@ router.post("/login", async (req, res) => {
       {
         userId: user._id
       },
-      "super-secret-key",
+      process.env.JWT_SECRET,
       {
         expiresIn: "7d"
       }
@@ -111,3 +111,4 @@ router.post("/login", async (req, res) => {
 });
 
 module.exports = router;
+

@@ -14,7 +14,14 @@ const ChatHistory = () => {
       try {
 
         const response = await axios.get(
-          "http://localhost:5000/api/ai/history"
+          "http://localhost:5000/api/ai/history",
+          {
+            headers: {
+              Authorization: `Bearer ${
+                localStorage.getItem("token")
+              }`
+            }
+          }
         );
 
         setChats(response.data);

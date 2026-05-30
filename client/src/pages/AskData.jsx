@@ -50,6 +50,13 @@ const AskData = () => {
       {
         question,
         analytics
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${
+            localStorage.getItem("token")
+          }`
+        }
       }
     );
 
@@ -195,6 +202,7 @@ const AskData = () => {
 };
 
 export default AskData;
+
 
 
 

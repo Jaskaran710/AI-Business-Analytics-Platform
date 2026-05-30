@@ -7,23 +7,74 @@ import Upload from "../pages/Upload";
 import AIInsights from "../pages/AIInsights";
 import AskData from "../pages/AskData";
 import ChatHistory from "../pages/ChatHistory";
+import ProtectedRoute from "../components/ProtectedRoute";
 import NotFound from "../pages/NotFound";
 
 const AppRoutes = () => {
+
   return (
+
     <BrowserRouter>
 
       <Routes>
 
+        {/* Protected Routes */}
+
         <Route
           path="/"
-          element={<Dashboard />}
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
         />
 
         <Route
           path="/dashboard"
-          element={<Dashboard />}
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
         />
+
+        <Route
+          path="/upload"
+          element={
+            <ProtectedRoute>
+              <Upload />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/ai-insights"
+          element={
+            <ProtectedRoute>
+              <AIInsights />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/ask-data"
+          element={
+            <ProtectedRoute>
+              <AskData />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/chat-history"
+          element={
+            <ProtectedRoute>
+              <ChatHistory />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Public Routes */}
 
         <Route
           path="/login"
@@ -36,26 +87,6 @@ const AppRoutes = () => {
         />
 
         <Route
-          path="/upload"
-          element={<Upload />}
-        />
-
-        <Route
-          path="/ai-insights"
-          element={<AIInsights />}
-        />
-
-        <Route
-          path="/ask-data"
-          element={<AskData />}
-        />
-
-        <Route
-          path="/chat-history"
-          element={<ChatHistory />}
-        />
-
-        <Route
           path="*"
           element={<NotFound />}
         />
@@ -63,11 +94,9 @@ const AppRoutes = () => {
       </Routes>
 
     </BrowserRouter>
+
   );
+
 };
 
 export default AppRoutes;
-
-
-
-

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import {
   LayoutDashboard,
@@ -6,10 +6,22 @@ import {
   Brain,
   MessageSquare,
   User,
-  History
+  History,
+  LogOut
 } from "lucide-react";
 
 const Sidebar = () => {
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    navigate("/login");
+
+  };
 
   return (
 
@@ -61,6 +73,14 @@ const Sidebar = () => {
           Chat History
         </Link>
 
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-3 hover:bg-red-700 p-4 rounded-xl transition text-left"
+        >
+          <LogOut size={20} />
+          Logout
+        </button>
+
         <Link
           to="/login"
           className="flex items-center gap-3 hover:bg-slate-800 p-4 rounded-xl transition"
@@ -78,5 +98,3 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
-
-
