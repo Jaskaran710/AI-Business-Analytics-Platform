@@ -3,17 +3,21 @@ import Navbar from "../components/Navbar";
 
 const DashboardLayout = ({ children }) => {
   return (
-    <div className="flex">
+    <div className="flex min-h-screen bg-slate-950">
 
       <Sidebar />
 
-      <div className="flex-1 bg-gray-100 min-h-screen">
+      <div className="flex-1 overflow-hidden">
 
         <Navbar />
 
-        <div className="p-6">
-          {children}
-        </div>
+        <main className="min-h-[calc(100vh-80px)] bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 p-8">
+
+          <div className="max-w-7xl mx-auto">
+            {children}
+          </div>
+
+        </main>
 
       </div>
 

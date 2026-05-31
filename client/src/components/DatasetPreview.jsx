@@ -2,72 +2,84 @@ const DatasetPreview = ({ previewData }) => {
 
   return (
 
-    <div className="bg-white p-6 rounded-xl shadow-md overflow-x-auto">
+    <div className="bg-white rounded-3xl shadow-xl border border-slate-200 p-8 overflow-hidden">
 
-      <h2 className="text-2xl font-bold mb-6">
-        Dataset Preview
-      </h2>
+      <div className="mb-6">
 
-      <table className="min-w-full border border-gray-300">
+        <h2 className="text-3xl font-bold text-slate-800">
+          Dataset Preview
+        </h2>
 
-        <thead className="bg-gray-200">
+        <p className="text-slate-500 mt-2">
+          First few rows from the uploaded dataset
+        </p>
 
-          <tr>
+      </div>
+
+      <div className="overflow-x-auto rounded-2xl border border-slate-200">
+
+        <table className="min-w-full">
+
+          <thead className="bg-slate-100">
+
+            <tr>
+
+              {
+                previewData.length > 0 &&
+                Object.keys(previewData[0]).map((key) => (
+
+                  <th
+                    key={key}
+                    className="px-5 py-4 text-left text-sm font-semibold text-slate-700"
+                  >
+                    {key}
+                  </th>
+
+                ))
+              }
+
+            </tr>
+
+          </thead>
+
+          <tbody>
 
             {
-              previewData.length > 0 &&
-              Object.keys(previewData[0]).map((key) => (
+              previewData.map((row, index) => (
 
-                <th
-                  key={key}
-                  className="border p-3 text-left"
+                <tr
+                  key={index}
+                  className="border-t border-slate-200 hover:bg-slate-50 transition"
                 >
-                  {key}
-                </th>
-
-              ))
-            }
-
-          </tr>
-
-        </thead>
-
-        <tbody>
-
-          {
-            previewData.map(
-              (row, index) => (
-
-                <tr key={index}>
 
                   {
-                    Object.values(row).map(
-                      (value, i) => (
+                    Object.values(row).map((value, i) => (
 
-                        <td
-                          key={i}
-                          className="border p-3"
-                        >
-                          {value}
-                        </td>
+                      <td
+                        key={i}
+                        className="px-5 py-4 text-slate-700"
+                      >
+                        {value}
+                      </td>
 
-                      )
-                    )
+                    ))
                   }
 
                 </tr>
 
-              )
-            )
-          }
+              ))
+            }
 
-        </tbody>
+          </tbody>
 
-      </table>
+        </table>
+
+      </div>
 
     </div>
 
   );
+
 };
 
 export default DatasetPreview;

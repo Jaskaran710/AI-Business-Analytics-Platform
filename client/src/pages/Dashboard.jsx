@@ -78,22 +78,44 @@ const Dashboard = () => {
 
       <div>
 
-        <div className="flex justify-between items-center mb-8">
+        
 
           <h1 className="text-4xl font-bold">
             Business Dashboard
           </h1>
 
-          <a
-            href="http://localhost:5000/api/report"
-            target="_blank"
-            rel="noreferrer"
-            className="bg-black text-white px-6 py-3 rounded-lg"
-          >
-            Export PDF Report
-          </a>
+<div className="bg-white rounded-3xl shadow-lg border border-slate-200 p-8 mb-8">
 
-        </div>
+  <div className="flex justify-between items-center">
+
+    <div>
+
+      <p className="text-blue-600 font-semibold mb-2">
+        AI Business Analytics Platform
+      </p>
+
+      <h1 className="text-5xl font-bold text-slate-800">
+        Executive Dashboard
+      </h1>
+
+      <p className="text-slate-500 mt-3">
+        Monitor KPIs, analytics, insights and business performance.
+      </p>
+
+    </div>
+
+    <a
+      href="http://localhost:5000/api/report"
+      target="_blank"
+      rel="noreferrer"
+      className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-2xl font-semibold transition"
+    >
+      Export PDF Report
+    </a>
+
+  </div>
+
+</div>
 
         <AnalyticsCards
           analytics={analytics}

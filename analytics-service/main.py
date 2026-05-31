@@ -3,13 +3,11 @@ import pandas as pd
 import numpy as np
 
 app = FastAPI()
-
 @app.get("/")
 def home():
     return {
         "message": "Analytics Service Running"
     }
-
 @app.post("/analyze")
 async def analyze_file(file: UploadFile = File(...)):
 

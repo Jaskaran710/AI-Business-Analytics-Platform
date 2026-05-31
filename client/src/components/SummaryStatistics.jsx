@@ -6,33 +6,41 @@ const SummaryStatistics = ({ statistics }) => {
 
   return (
 
-    <div className="bg-white p-6 rounded-xl shadow-md mt-6">
+    <div className="bg-white rounded-3xl shadow-xl border border-slate-200 p-8">
 
-      <h2 className="text-2xl font-bold mb-6">
-        Summary Statistics
-      </h2>
+      <div className="mb-6">
 
-      <div className="overflow-x-auto">
+        <h2 className="text-3xl font-bold text-slate-800">
+          Summary Statistics
+        </h2>
 
-        <table className="min-w-full border">
+        <p className="text-slate-500 mt-2">
+          Statistical overview of numeric columns
+        </p>
 
-          <thead>
+      </div>
 
-            <tr className="bg-gray-200">
+      <div className="overflow-x-auto rounded-2xl border border-slate-200">
 
-              <th className="border p-2">
+        <table className="min-w-full">
+
+          <thead className="bg-slate-100">
+
+            <tr>
+
+              <th className="px-5 py-4 text-left">
                 Column
               </th>
 
-              <th className="border p-2">
+              <th className="px-5 py-4 text-left">
                 Mean
               </th>
 
-              <th className="border p-2">
+              <th className="px-5 py-4 text-left">
                 Min
               </th>
 
-              <th className="border p-2">
+              <th className="px-5 py-4 text-left">
                 Max
               </th>
 
@@ -45,21 +53,24 @@ const SummaryStatistics = ({ statistics }) => {
             {
               columns.map((column) => (
 
-                <tr key={column}>
+                <tr
+                  key={column}
+                  className="border-t border-slate-200 hover:bg-slate-50"
+                >
 
-                  <td className="border p-2">
+                  <td className="px-5 py-4">
                     {column}
                   </td>
 
-                  <td className="border p-2">
+                  <td className="px-5 py-4">
                     {statistics[column]?.mean?.toFixed?.(2) ?? "N/A"}
                   </td>
 
-                  <td className="border p-2">
+                  <td className="px-5 py-4">
                     {statistics[column]?.min?.toFixed?.(2) ?? "N/A"}
                   </td>
 
-                  <td className="border p-2">
+                  <td className="px-5 py-4">
                     {statistics[column]?.max?.toFixed?.(2) ?? "N/A"}
                   </td>
 

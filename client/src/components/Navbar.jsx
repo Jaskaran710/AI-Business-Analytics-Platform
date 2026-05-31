@@ -1,39 +1,49 @@
-import { UserCircle } from "lucide-react";
+import { UserCircle, Moon } from "lucide-react";
 
 const Navbar = () => {
 
   return (
 
-    <div className="h-20 bg-white shadow-md flex items-center justify-between px-8 border-b">
+    <div className="h-20 bg-slate-900 border-b border-slate-800 flex items-center justify-between px-8">
 
       <div>
 
-        <h2 className="text-3xl font-bold text-slate-800">
-          Business Analytics Dashboard
+        <h2 className="text-3xl font-bold text-white">
+          AI Business Analytics
         </h2>
 
-        <p className="text-gray-500">
+        <p className="text-slate-400">
           Monitor insights and analytics
         </p>
 
       </div>
 
-      <div className="flex items-center gap-3 bg-slate-100 px-4 py-2 rounded-xl">
+      <div className="flex items-center gap-4">
 
-        <UserCircle
-          size={36}
-          className="text-slate-700"
-        />
+        <button
+          className="bg-slate-800 hover:bg-slate-700 transition p-3 rounded-xl text-white"
+        >
+          <Moon size={20} />
+        </button>
 
-        <div>
+        <div className="flex items-center gap-3 bg-slate-800 px-4 py-2 rounded-2xl border border-slate-700">
 
-          <p className="font-semibold">
-            Welcome Back
-          </p>
+          <UserCircle
+            size={38}
+            className="text-blue-400"
+          />
 
-          <p className="text-sm text-gray-500">
-            Analytics User
-          </p>
+          <div>
+
+            <p className="font-semibold text-white">
+              Welcome Back
+            </p>
+
+            <p className="text-sm text-slate-400">
+              Analytics User
+            </p>
+
+          </div>
 
         </div>
 
