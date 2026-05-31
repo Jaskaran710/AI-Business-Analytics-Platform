@@ -8,6 +8,8 @@ import {
   ResponsiveContainer
 } from "recharts";
 
+import { BarChart3 } from "lucide-react";
+
 const SalesBarChart = ({ data }) => {
 
   if (!data || data.length === 0) {
@@ -16,52 +18,62 @@ const SalesBarChart = ({ data }) => {
 
   return (
 
-    <div className="bg-white p-8 rounded-2xl shadow-xl border">
+    <div className="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden">
 
-      <h2 className="text-2xl font-bold text-slate-800 mb-2">
-        Sales Overview
-      </h2>
+      <div className="bg-gradient-to-r from-blue-600 to-cyan-500 p-6 text-white">
 
-      <p className="text-gray-500 mb-6">
-        Dataset metric distribution
-      </p>
+        <div className="flex items-center gap-3">
 
-      <ResponsiveContainer
-        width="100%"
-        height={350}
-      >
+          <BarChart3 size={28} />
 
-        <BarChart
-          data={data}
-          margin={{
-            top: 10,
-            right: 20,
-            left: 0,
-            bottom: 10
-          }}
+          <div>
+
+            <h2 className="text-2xl font-bold">
+              Sales Overview
+            </h2>
+
+            <p className="text-blue-100">
+              Dataset metric distribution
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div className="p-6">
+
+        <ResponsiveContainer
+          width="100%"
+          height={350}
         >
 
-          <CartesianGrid
-            strokeDasharray="4 4"
-          />
+          <BarChart data={data}>
 
-          <XAxis
-            dataKey="name"
-          />
+            <CartesianGrid
+              strokeDasharray="3 3"
+            />
 
-          <YAxis />
+            <XAxis
+              dataKey="name"
+            />
 
-          <Tooltip />
+            <YAxis />
 
-          <Bar
-            dataKey="value"
-            radius={[8, 8, 0, 0]}
-            fill="#2563eb"
-          />
+            <Tooltip />
 
-        </BarChart>
+            <Bar
+              dataKey="value"
+              fill="#2563eb"
+              radius={[10, 10, 0, 0]}
+            />
 
-      </ResponsiveContainer>
+          </BarChart>
+
+        </ResponsiveContainer>
+
+      </div>
 
     </div>
 

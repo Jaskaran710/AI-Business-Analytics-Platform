@@ -1,3 +1,10 @@
+import {
+  BarChart3,
+  TrendingUp,
+  ArrowUp,
+  ArrowDown
+} from "lucide-react";
+
 const SummaryStatistics = ({ statistics }) => {
 
   if (!statistics) return null;
@@ -6,82 +13,113 @@ const SummaryStatistics = ({ statistics }) => {
 
   return (
 
-    <div className="bg-white rounded-3xl shadow-xl border border-slate-200 p-8">
+    <div className="mb-8">
 
-      <div className="mb-6">
+      <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-violet-600 rounded-3xl p-8 text-white shadow-xl mb-6">
 
-        <h2 className="text-3xl font-bold text-slate-800">
-          Summary Statistics
-        </h2>
+        <div className="flex items-center gap-3">
 
-        <p className="text-slate-500 mt-2">
-          Statistical overview of numeric columns
-        </p>
+          <BarChart3 size={30} />
+
+          <div>
+
+            <h2 className="text-3xl font-bold">
+              Summary Statistics
+            </h2>
+
+            <p className="text-indigo-100">
+              AI Generated Statistical Overview
+            </p>
+
+          </div>
+
+        </div>
 
       </div>
 
-      <div className="overflow-x-auto rounded-2xl border border-slate-200">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
 
-        <table className="min-w-full">
+        {columns.map((column) => (
 
-          <thead className="bg-slate-100">
+          <div
+            key={column}
+            className="bg-white rounded-3xl shadow-xl border border-slate-200 p-6 hover:shadow-2xl hover:-translate-y-1 transition"
+          >
 
-            <tr>
+            <h3 className="text-xl font-bold text-slate-800 mb-6">
+              {column}
+            </h3>
 
-              <th className="px-5 py-4 text-left">
-                Column
-              </th>
+            <div className="space-y-4">
 
-              <th className="px-5 py-4 text-left">
-                Mean
-              </th>
+              <div className="flex justify-between items-center bg-blue-50 p-4 rounded-2xl">
 
-              <th className="px-5 py-4 text-left">
-                Min
-              </th>
+                <div className="flex items-center gap-2">
 
-              <th className="px-5 py-4 text-left">
-                Max
-              </th>
+                  <TrendingUp
+                    size={18}
+                    className="text-blue-600"
+                  />
 
-            </tr>
+                  <span className="font-medium">
+                    Mean
+                  </span>
 
-          </thead>
+                </div>
 
-          <tbody>
+                <span className="font-bold text-blue-700">
+                  {statistics[column]?.mean?.toFixed?.(2) ?? "N/A"}
+                </span>
 
-            {
-              columns.map((column) => (
+              </div>
 
-                <tr
-                  key={column}
-                  className="border-t border-slate-200 hover:bg-slate-50"
-                >
+              <div className="flex justify-between items-center bg-red-50 p-4 rounded-2xl">
 
-                  <td className="px-5 py-4">
-                    {column}
-                  </td>
+                <div className="flex items-center gap-2">
 
-                  <td className="px-5 py-4">
-                    {statistics[column]?.mean?.toFixed?.(2) ?? "N/A"}
-                  </td>
+                  <ArrowDown
+                    size={18}
+                    className="text-red-600"
+                  />
 
-                  <td className="px-5 py-4">
-                    {statistics[column]?.min?.toFixed?.(2) ?? "N/A"}
-                  </td>
+                  <span className="font-medium">
+                    Minimum
+                  </span>
 
-                  <td className="px-5 py-4">
-                    {statistics[column]?.max?.toFixed?.(2) ?? "N/A"}
-                  </td>
+                </div>
 
-                </tr>
+                <span className="font-bold text-red-700">
+                  {statistics[column]?.min?.toFixed?.(2) ?? "N/A"}
+                </span>
 
-              ))
-            }
+              </div>
 
-          </tbody>
+              <div className="flex justify-between items-center bg-green-50 p-4 rounded-2xl">
 
-        </table>
+                <div className="flex items-center gap-2">
+
+                  <ArrowUp
+                    size={18}
+                    className="text-green-600"
+                  />
+
+                  <span className="font-medium">
+                    Maximum
+                  </span>
+
+                </div>
+
+                <span className="font-bold text-green-700">
+                  {statistics[column]?.max?.toFixed?.(2) ?? "N/A"}
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        ))}
 
       </div>
 

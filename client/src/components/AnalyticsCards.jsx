@@ -1,89 +1,104 @@
 import {
   Database,
-  DollarSign
+  DollarSign,
+  Activity,
+  CheckCircle
 } from "lucide-react";
 
 const AnalyticsCards = ({ analytics }) => {
 
+  const cards = [
+
+    {
+      title: "Dataset Records",
+      value: analytics.rows,
+      subtitle: `${analytics.columns} Columns`,
+      icon: Database,
+      gradient: "from-blue-600 to-cyan-500"
+    },
+
+    {
+      title: "Total Sales",
+      value:
+        analytics.total_sales
+          ? analytics.total_sales.toLocaleString()
+          : "N/A",
+      subtitle:
+        analytics.average_sales
+          ? `Avg ${analytics.average_sales.toFixed(2)}`
+          : "No Sales Data",
+      icon: DollarSign,
+      gradient: "from-emerald-600 to-green-500"
+    },
+
+    {
+      title: "Missing Values",
+      value: analytics.missing_values,
+      subtitle: "Data Quality Check",
+      icon: Activity,
+      gradient: "from-orange-500 to-amber-500"
+    },
+
+    {
+      title: "Analytics Status",
+      value: "Ready",
+      subtitle: "AI Insights Available",
+      icon: CheckCircle,
+      gradient: "from-violet-600 to-purple-500"
+    }
+
+  ];
+
   return (
 
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
 
-      <div className="bg-gradient-to-r from-blue-600 to-blue-500 text-white p-8 rounded-2xl shadow-xl hover:scale-[1.02] transition">
+      {
 
-        <div className="flex items-center gap-3 mb-4">
+        cards.map((card, index) => {
 
-          <Database size={30} />
+          const Icon = card.icon;
 
-          <h2 className="text-2xl font-bold">
-            Dataset Information
-          </h2>
+          return (
 
-        </div>
+            <div
+              key={index}
+              className={`bg-gradient-to-br ${card.gradient} text-white rounded-3xl shadow-xl p-7 hover:scale-[1.03] transition-all duration-300`}
+            >
 
-        <div className="space-y-3 text-lg">
+              <div className="flex justify-between items-start mb-6">
 
-          <p>
-            Rows:
-            {" "}
-            <span className="font-bold">
-              {analytics.rows}
-            </span>
-          </p>
+                <div>
 
-          <p>
-            Columns:
-            {" "}
-            <span className="font-bold">
-              {analytics.columns}
-            </span>
-          </p>
+                  <p className="text-white/80 text-sm uppercase tracking-wider">
+                    {card.title}
+                  </p>
 
-          <p>
-            Missing Values:
-            {" "}
-            <span className="font-bold">
-              {analytics.missing_values}
-            </span>
-          </p>
+                  <h2 className="text-4xl font-bold mt-2">
+                    {card.value}
+                  </h2>
 
-        </div>
+                </div>
 
-      </div>
+                <div className="bg-white/20 p-3 rounded-2xl">
 
-      <div className="bg-gradient-to-r from-emerald-600 to-green-500 text-white p-8 rounded-2xl shadow-xl hover:scale-[1.02] transition">
+                  <Icon size={28} />
 
-        <div className="flex items-center gap-3 mb-4">
+                </div>
 
-          <DollarSign size={30} />
+              </div>
 
-          <h2 className="text-2xl font-bold">
-            Sales KPIs
-          </h2>
+              <p className="text-white/90 font-medium">
+                {card.subtitle}
+              </p>
 
-        </div>
+            </div>
 
-        <div className="space-y-3 text-lg">
+          );
 
-          <p>
-            Total Sales:
-            {" "}
-            <span className="font-bold">
-              {analytics.total_sales ?? "N/A"}
-            </span>
-          </p>
+        })
 
-          <p>
-            Average Sales:
-            {" "}
-            <span className="font-bold">
-              {analytics.average_sales ?? "N/A"}
-            </span>
-          </p>
-
-        </div>
-
-      </div>
+      }
 
     </div>
 

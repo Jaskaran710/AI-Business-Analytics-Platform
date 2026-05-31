@@ -6,6 +6,8 @@ import {
   ResponsiveContainer
 } from "recharts";
 
+import { PieChart as PieChartIcon } from "lucide-react";
+
 const COLORS = [
   "#2563eb",
   "#10b981",
@@ -23,33 +25,48 @@ const DataDistributionChart = ({ data }) => {
 
   return (
 
-    <div className="bg-white p-8 rounded-2xl shadow-xl border">
+    <div className="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden">
 
-      <h2 className="text-2xl font-bold text-slate-800 mb-2">
-        Data Distribution
-      </h2>
+      <div className="bg-gradient-to-r from-purple-600 to-violet-500 p-6 text-white">
 
-      <p className="text-gray-500 mb-6">
-        Distribution of dataset metrics
-      </p>
+        <div className="flex items-center gap-3">
 
-      <ResponsiveContainer
-        width="100%"
-        height={400}
-      >
+          <PieChartIcon size={28} />
 
-        <PieChart>
+          <div>
 
-          <Pie
-            data={data}
-            dataKey="value"
-            nameKey="name"
-            outerRadius={140}
-            label
-          >
+            <h2 className="text-2xl font-bold">
+              Data Distribution
+            </h2>
 
-            {
-              data.map((entry, index) => (
+            <p className="text-purple-100">
+              Distribution of dataset metrics
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div className="p-6">
+
+        <ResponsiveContainer
+          width="100%"
+          height={420}
+        >
+
+          <PieChart>
+
+            <Pie
+              data={data}
+              dataKey="value"
+              nameKey="name"
+              outerRadius={150}
+              label
+            >
+
+              {data.map((entry, index) => (
 
                 <Cell
                   key={index}
@@ -60,16 +77,17 @@ const DataDistributionChart = ({ data }) => {
                   }
                 />
 
-              ))
-            }
+              ))}
 
-          </Pie>
+            </Pie>
 
-          <Tooltip />
+            <Tooltip />
 
-        </PieChart>
+          </PieChart>
 
-      </ResponsiveContainer>
+        </ResponsiveContainer>
+
+      </div>
 
     </div>
 

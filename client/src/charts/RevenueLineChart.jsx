@@ -8,6 +8,8 @@ import {
   ResponsiveContainer
 } from "recharts";
 
+import { TrendingUp } from "lucide-react";
+
 const RevenueLineChart = ({ data }) => {
 
   if (!data || data.length === 0) {
@@ -16,50 +18,67 @@ const RevenueLineChart = ({ data }) => {
 
   return (
 
-    <div className="bg-white p-8 rounded-2xl shadow-xl border">
+    <div className="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden">
 
-      <h2 className="text-2xl font-bold text-slate-800 mb-2">
-        Revenue Trend
-      </h2>
+      <div className="bg-gradient-to-r from-emerald-600 to-green-500 p-6 text-white">
 
-      <p className="text-gray-500 mb-6">
-        Performance trend across metrics
-      </p>
+        <div className="flex items-center gap-3">
 
-      <ResponsiveContainer
-        width="100%"
-        height={350}
-      >
+          <TrendingUp size={28} />
 
-        <LineChart
-          data={data}
+          <div>
+
+            <h2 className="text-2xl font-bold">
+              Revenue Trend
+            </h2>
+
+            <p className="text-green-100">
+              Performance trend across metrics
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div className="p-6">
+
+        <ResponsiveContainer
+          width="100%"
+          height={350}
         >
 
-          <CartesianGrid
-            strokeDasharray="4 4"
-          />
+          <LineChart data={data}>
 
-          <XAxis dataKey="name" />
+            <CartesianGrid
+              strokeDasharray="3 3"
+            />
 
-          <YAxis />
+            <XAxis dataKey="name" />
 
-          <Tooltip />
+            <YAxis />
 
-          <Line
-            type="monotone"
-            dataKey="value"
-            stroke="#10b981"
-            strokeWidth={3}
-            dot={{ r: 5 }}
-          />
+            <Tooltip />
 
-        </LineChart>
+            <Line
+              type="monotone"
+              dataKey="value"
+              stroke="#10b981"
+              strokeWidth={4}
+              dot={{ r: 6 }}
+            />
 
-      </ResponsiveContainer>
+          </LineChart>
+
+        </ResponsiveContainer>
+
+      </div>
 
     </div>
 
   );
+
 };
 
 export default RevenueLineChart;

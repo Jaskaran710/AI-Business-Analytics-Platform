@@ -6,15 +6,20 @@ const Register = () => {
 
   const navigate = useNavigate();
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] =
+    useState("");
+
+  const [email, setEmail] =
+    useState("");
+
+  const [password, setPassword] =
+    useState("");
 
   const handleRegister = async () => {
 
     try {
 
-      const response = await axios.post(
+      await axios.post(
         "http://localhost:5000/api/auth/register",
         {
           name,
@@ -22,8 +27,6 @@ const Register = () => {
           password
         }
       );
-
-      alert(response.data.message);
 
       navigate("/login");
 
@@ -40,63 +43,179 @@ const Register = () => {
 
   return (
 
-    <div className="min-h-screen flex items-center justify-center bg-slate-100">
+    <div className="min-h-screen bg-slate-950 overflow-hidden relative">
 
-      <div className="bg-white w-[500px] rounded-3xl shadow-2xl p-10 border border-slate-200">
+      <div className="absolute top-[-200px] left-[-200px] w-[500px] h-[500px] rounded-full bg-violet-600 blur-[180px] opacity-30" />
 
-        <div className="text-center mb-8">
+      <div className="absolute bottom-[-200px] right-[-200px] w-[500px] h-[500px] rounded-full bg-blue-600 blur-[180px] opacity-30" />
 
-          <h1 className="text-4xl font-bold text-slate-800">
+      <div className="relative z-10 max-w-7xl mx-auto px-10 py-12">
+
+        <div className="text-center mb-12">
+
+          <h1 className="text-6xl font-bold text-white">
             AI Business Analytics
           </h1>
 
-          <p className="text-slate-500 mt-3">
-            Create your account
+          <p className="text-slate-400 text-xl mt-4">
+            Create your account and start building AI-powered insights
           </p>
 
         </div>
 
-        <input
-          className="w-full border border-slate-300 rounded-xl p-4 mb-4"
-          placeholder="Full Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
+        <div className="grid lg:grid-cols-3 gap-8 items-center">
 
-        <input
-          className="w-full border border-slate-300 rounded-xl p-4 mb-4"
-          placeholder="Email Address"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+          <div className="lg:col-span-2">
 
-        <input
-          type="password"
-          className="w-full border border-slate-300 rounded-xl p-4 mb-6"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+            <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-[32px] p-8">
 
-        <button
-          onClick={handleRegister}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl font-semibold transition"
-        >
-          Create Account
-        </button>
+              <div className="grid md:grid-cols-3 gap-5 mb-6">
 
-        <div className="text-center mt-6">
+                <div className="bg-blue-500/20 border border-blue-500/30 rounded-3xl p-6">
 
-          <span className="text-slate-500">
-            Already have an account?
-          </span>
+                  <p className="text-slate-300 text-sm">
+                    Datasets
+                  </p>
 
-          <Link
-            to="/login"
-            className="text-blue-600 font-semibold ml-2"
-          >
-            Sign In
-          </Link>
+                  <h2 className="text-4xl font-bold text-white mt-2">
+                    10K+
+                  </h2>
+
+                </div>
+
+                <div className="bg-emerald-500/20 border border-emerald-500/30 rounded-3xl p-6">
+
+                  <p className="text-slate-300 text-sm">
+                    AI Insights
+                  </p>
+
+                  <h2 className="text-4xl font-bold text-white mt-2">
+                    500K+
+                  </h2>
+
+                </div>
+
+                <div className="bg-violet-500/20 border border-violet-500/30 rounded-3xl p-6">
+
+                  <p className="text-slate-300 text-sm">
+                    Accuracy
+                  </p>
+
+                  <h2 className="text-4xl font-bold text-white mt-2">
+                    98%
+                  </h2>
+
+                </div>
+
+              </div>
+
+              <div className="bg-slate-900/60 rounded-3xl p-8 border border-white/10">
+
+                <h2 className="text-white text-2xl font-bold mb-6">
+                  Platform Capabilities
+                </h2>
+
+                <div className="space-y-4 text-slate-300">
+
+                  <div>
+                    📊 Interactive Dashboards
+                  </div>
+
+                  <div>
+                    🤖 AI Generated Insights
+                  </div>
+
+                  <div>
+                    📈 Executive Analytics Reports
+                  </div>
+
+                  <div>
+                    💬 Ask Your Data with AI
+                  </div>
+
+                  <div>
+                    📂 Dataset History Tracking
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div>
+
+            <div className="bg-white/10 backdrop-blur-2xl border border-white/10 rounded-[32px] p-8 shadow-2xl">
+
+              <h2 className="text-4xl font-bold text-white mb-2">
+                Create Account
+              </h2>
+
+              <p className="text-slate-400 mb-8">
+                Join the platform
+              </p>
+
+              <input
+                className="w-full bg-white/5 border border-white/10 text-white rounded-2xl p-4 mb-4"
+                placeholder="Full Name"
+                value={name}
+                onChange={(e) =>
+                  setName(
+                    e.target.value
+                  )
+                }
+              />
+
+              <input
+                className="w-full bg-white/5 border border-white/10 text-white rounded-2xl p-4 mb-4"
+                placeholder="Email Address"
+                value={email}
+                onChange={(e) =>
+                  setEmail(
+                    e.target.value
+                  )
+                }
+              />
+
+              <input
+                type="password"
+                className="w-full bg-white/5 border border-white/10 text-white rounded-2xl p-4 mb-6"
+                placeholder="Password"
+                value={password}
+                onChange={(e) =>
+                  setPassword(
+                    e.target.value
+                  )
+                }
+              />
+
+              <button
+                onClick={handleRegister}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-2xl font-semibold transition"
+              >
+                Create Account
+              </button>
+
+              <div className="text-center mt-6">
+
+                <span className="text-slate-400">
+                  Already have an account?
+                </span>
+
+                <Link
+                  to="/login"
+                  className="text-blue-400 ml-2 font-semibold"
+                >
+                  Sign In
+                </Link>
+
+              </div>
+
+            </div>
+
+          </div>
 
         </div>
 

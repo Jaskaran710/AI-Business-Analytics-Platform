@@ -1,7 +1,8 @@
 import {
   UserCircle,
   Moon,
-  Sparkles
+  Sparkles,
+  ShieldCheck
 } from "lucide-react";
 
 const Navbar = () => {
@@ -48,25 +49,42 @@ const Navbar = () => {
           <Moon size={20} />
         </button>
 
-        <div className="flex items-center gap-3 bg-slate-800 px-5 py-3 rounded-2xl border border-slate-700">
+        <div className="bg-slate-800 border border-slate-700 rounded-3xl px-5 py-3 flex items-center gap-4 min-w-[320px]">
 
-          <UserCircle
-            size={42}
-            className="text-blue-400"
-          />
+          <div className="bg-blue-600 p-3 rounded-2xl">
 
-          <div>
+            <UserCircle
+              size={36}
+              className="text-white"
+            />
 
-            <p className="font-semibold text-white">
-              Welcome Back
+          </div>
+
+          <div className="flex-1">
+
+            <p className="text-xs uppercase tracking-wider text-blue-400">
+              Logged In User
             </p>
 
-            <p className="text-sm text-slate-300">
+            <p className="text-white font-bold text-lg">
               {user?.name || "Analytics User"}
             </p>
 
-            <p className="text-xs text-slate-500">
+            <p className="text-slate-400 text-sm">
               {user?.email || ""}
+            </p>
+
+          </div>
+
+          <div className="text-right">
+
+            <ShieldCheck
+              size={22}
+              className="text-green-400 ml-auto"
+            />
+
+            <p className="text-xs text-green-400 mt-1">
+              Verified
             </p>
 
           </div>

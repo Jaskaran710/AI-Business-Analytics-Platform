@@ -95,34 +95,38 @@ const Sidebar = () => {
 
         <div className="space-y-2">
 
-          {menuItems.map((item) => {
+          {
 
-            const Icon = item.icon;
+            menuItems.map((item) => {
 
-            const active =
-              location.pathname === item.path;
+              const Icon = item.icon;
 
-            return (
+              const active =
+                location.pathname === item.path;
 
-              <Link
-                key={item.path}
-                to={item.path}
-                className={`flex items-center gap-3 p-4 rounded-xl transition-all ${
-                  active
-                    ? "bg-blue-600 text-white"
-                    : "text-slate-300 hover:bg-slate-800"
-                }`}
-              >
+              return (
 
-                <Icon size={20} />
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={`flex items-center gap-3 p-4 rounded-xl transition-all ${
+                    active
+                      ? "bg-blue-600 text-white shadow-lg"
+                      : "text-slate-300 hover:bg-slate-800"
+                  }`}
+                >
 
-                {item.label}
+                  <Icon size={20} />
 
-              </Link>
+                  {item.label}
 
-            );
+                </Link>
 
-          })}
+              );
+
+            })
+
+          }
 
         </div>
 
@@ -130,23 +134,31 @@ const Sidebar = () => {
 
       <div className="p-4 border-t border-slate-800">
 
-        <div className="bg-slate-800 rounded-xl p-4 mb-4">
+        <div className="bg-gradient-to-br from-slate-800 to-slate-700 rounded-3xl p-5 mb-4 border border-slate-600 shadow-lg">
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
 
-            <UserCircle
-              size={42}
-              className="text-blue-400"
-            />
+            <div className="bg-blue-600 p-3 rounded-2xl">
+
+              <UserCircle
+                size={36}
+                className="text-white"
+              />
+
+            </div>
 
             <div>
 
-              <p className="text-white font-semibold">
+              <p className="text-white font-bold text-lg">
                 {user?.name || "Analytics User"}
               </p>
 
-              <p className="text-slate-400 text-sm">
+              <p className="text-slate-300 text-sm">
                 {user?.email || ""}
+              </p>
+
+              <p className="text-green-400 text-xs mt-2 font-medium">
+                ● Active Session
               </p>
 
             </div>
@@ -157,7 +169,7 @@ const Sidebar = () => {
 
         <button
           onClick={handleLogout}
-          className="w-full flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white p-3 rounded-xl transition"
+          className="w-full flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white p-3 rounded-xl transition font-semibold"
         >
 
           <LogOut size={18} />
