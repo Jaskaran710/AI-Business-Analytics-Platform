@@ -8,10 +8,9 @@ import { AnalyticsContext } from "../context/AnalyticsContext";
 const Upload = () => {
 
   const [selectedFile, setSelectedFile] = useState(null);
-
   const [loading, setLoading] = useState(false);
 
-  const { analytics, setAnalytics } = useContext(AnalyticsContext);
+  const { setAnalytics } = useContext(AnalyticsContext);
 
   const handleFileChange = (event) => {
 
@@ -19,73 +18,57 @@ const Upload = () => {
 
     if (!file) return;
 
-    const allowedTypes = [
-      "text/csv",
-      "application/vnd.ms-excel",
-      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-    ];
-
-    if (!allowedTypes.includes(file.type)) {
-      alert("Only CSV and Excel files are allowed");
-      return;
-    }
-
     setSelectedFile(file);
+
   };
 
   const handleUpload = async () => {
 
     if (!selectedFile) {
+
       toast.error("Please select a file first");
       return;
+
     }
 
     try {
 
       setLoading(true);
 
-      toast.loading(
-        "Uploading dataset...",
+      const formData = new FormData();
+
+      formData.append(
+        "file",
+        selectedFile
+      );
+
+      const response = await axios.post(
+        "http://localhost:5000/api/upload",
+        formData,
         {
-          id: "upload"
+          headers: {
+            Authorization:
+              "Bearer " +
+              localStorage.getItem("token")
+          }
         }
       );
 
-      const formData = new FormData();
-
-      formData.append("file", selectedFile);
-
-      const response = await axios.post(
-  "http://localhost:5000/api/upload",
-  formData,
-  {
-    headers: {
-      Authorization: `Bearer ${
-        localStorage.getItem("token")
-      }`
-    }
-  }
-);
-
-      setAnalytics(response.data.analytics);
+      setAnalytics(
+        response.data.analytics
+      );
 
       toast.success(
-  "Dataset uploaded successfully",
-  {
-    id: "upload"
-  }
-);
+        "Dataset uploaded successfully"
+      );
 
     } catch (error) {
 
       console.error(error);
 
       toast.error(
-  "Upload failed",
-  {
-    id: "upload"
-  }
-);
+        "Upload failed"
+      );
 
     } finally {
 
@@ -96,25 +79,37 @@ const Upload = () => {
   };
 
   return (
+
     <DashboardLayout>
 
       <div>
 
-        <h1 className="text-4xl font-bold mb-8">
-          Upload Dataset
-        </h1>
+        <div className="mb-10">
 
-        <div className="bg-white p-10 rounded-2xl shadow-md border-2 border-dashed border-gray-300 mb-8">
+          <p className="text-blue-600 font-semibold uppercase tracking-wider">
+            Data Management
+          </p>
 
-          <div className="flex flex-col items-center justify-center text-center">
+          <h1 className="text-5xl font-bold text-slate-800 mt-2">
+            Upload Dataset
+          </h1>
 
-            <h2 className="text-2xl font-bold mb-4">
-              Upload CSV or Excel File
+          <p className="text-slate-500 mt-3">
+            Upload CSV or Excel datasets and generate analytics instantly.
+          </p>
+
+        </div>
+
+        <div className="bg-white rounded-3xl shadow-xl border border-slate-200 p-12">
+
+          <div className="text-center">
+
+            <h2 className="text-3xl font-bold text-slate-800 mb-4">
+              Upload Your Dataset
             </h2>
 
-            <p className="text-gray-500 mb-6">
-              Drag and drop your dataset here
-              or click below to browse files
+            <p className="text-slate-500 mb-8">
+              CSV, XLSX and XLS files supported
             </p>
 
             <input
@@ -124,168 +119,36 @@ const Upload = () => {
               className="mb-6"
             />
 
-            {
-              selectedFile && (
-                <div className="mb-6 text-green-600 font-semibold">
-                  Selected File: {selectedFile.name}
-                </div>
-              )
-            }
+            {selectedFile && (
+              <div className="bg-green-50 border border-green-200 rounded-2xl p-4 mb-6 max-w-xl mx-auto">
+                <p className="font-semibold text-green-700">
+                  Selected File
+                </p>
+
+                <p className="text-slate-700">
+                  {selectedFile.name}
+                </p>
+              </div>
+            )}
 
             <button
               onClick={handleUpload}
               disabled={loading}
-              className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white px-6 py-3 rounded-xl font-semibold flex items-center gap-2"
+              className="bg-blue-600 hover:bg-blue-700 disabled:bg-slate-400 text-white px-8 py-4 rounded-2xl font-semibold transition"
             >
-              {
-                loading
-                  ? "Uploading..."
-                  : "Upload Dataset"
-              }
+              {loading ? "Uploading..." : "Upload Dataset"}
             </button>
 
           </div>
 
         </div>
 
-        {
-          analytics && (
-
-            <>
-
-              <div className="grid grid-cols-2 gap-6 mb-8">
-
-                <div className="bg-white p-6 rounded-xl shadow-md">
-
-                  <h2 className="text-2xl font-bold mb-4">
-                    Dataset Information
-                  </h2>
-
-                  <p>
-                    <strong>Rows:</strong>
-                    {" "}
-                    {analytics.rows}
-                  </p>
-
-                  <p>
-                    <strong>Columns:</strong>
-                    {" "}
-                    {analytics.columns}
-                  </p>
-
-                  <p>
-                    <strong>Missing Values:</strong>
-                    {" "}
-                    {analytics.missing_values}
-                  </p>
-
-                </div>
-
-                <div className="bg-white p-6 rounded-xl shadow-md">
-
-                  <h2 className="text-2xl font-bold mb-4">
-                    Sales KPIs
-                  </h2>
-
-                  <p>
-                    <strong>Total Sales:</strong>
-                    {" "}
-                    {analytics.total_sales ?? "N/A"}
-                  </p>
-
-                  <p>
-                    <strong>Average Sales:</strong>
-                    {" "}
-                    {analytics.average_sales ?? "N/A"}
-                  </p>
-
-                </div>
-
-              </div>
-
-              <div className="bg-white p-6 rounded-xl shadow-md overflow-x-auto">
-
-                <h2 className="text-2xl font-bold mb-6">
-                  Dataset Preview
-                </h2>
-
-                <table className="min-w-full border border-gray-300">
-
-                  <thead className="bg-gray-200">
-
-                    <tr>
-
-                      {
-                        analytics.preview_data.length > 0 &&
-                        Object.keys(
-                          analytics.preview_data[0]
-                        ).map((key) => (
-
-                          <th
-                            key={key}
-                            className="border p-3 text-left"
-                          >
-                            {key}
-                          </th>
-
-                        ))
-                      }
-
-                    </tr>
-
-                  </thead>
-
-                  <tbody>
-
-                    {
-                      analytics.preview_data.map(
-                        (row, index) => (
-
-                          <tr key={index}>
-
-                            {
-                              Object.values(row).map(
-                                (value, i) => (
-
-                                  <td
-                                    key={i}
-                                    className="border p-3"
-                                  >
-                                    {value}
-                                  </td>
-
-                                )
-                              )
-                            }
-
-                          </tr>
-
-                        )
-                      )
-                    }
-
-                  </tbody>
-
-                </table>
-
-              </div>
-
-            </>
-
-          )
-        }
-
       </div>
 
     </DashboardLayout>
+
   );
+
 };
 
 export default Upload;
-
-
-
-
-
-
-

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Login = () => {
 
@@ -31,8 +31,6 @@ const Login = () => {
         JSON.stringify(response.data.user)
       );
 
-      alert("Login successful");
-
       navigate("/dashboard");
 
     } catch (error) {
@@ -48,24 +46,32 @@ const Login = () => {
 
   return (
 
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center bg-slate-100">
 
-      <div className="bg-white p-10 rounded-2xl shadow-xl w-[450px]">
+      <div className="bg-white w-[500px] rounded-3xl shadow-2xl p-10 border border-slate-200">
 
-        <h1 className="text-3xl font-bold mb-6">
-          Login
-        </h1>
+        <div className="text-center mb-8">
+
+          <h1 className="text-4xl font-bold text-slate-800">
+            AI Business Analytics
+          </h1>
+
+          <p className="text-slate-500 mt-3">
+            Sign in to continue
+          </p>
+
+        </div>
 
         <input
-          className="border p-3 w-full mb-4"
-          placeholder="Email"
+          className="w-full border border-slate-300 rounded-xl p-4 mb-4"
+          placeholder="Email Address"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
 
         <input
           type="password"
-          className="border p-3 w-full mb-6"
+          className="w-full border border-slate-300 rounded-xl p-4 mb-6"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -73,10 +79,25 @@ const Login = () => {
 
         <button
           onClick={handleLogin}
-          className="bg-black text-white px-6 py-3 rounded w-full"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl font-semibold transition"
         >
-          Login
+          Sign In
         </button>
+
+        <div className="text-center mt-6">
+
+          <span className="text-slate-500">
+            Don't have an account?
+          </span>
+
+          <Link
+            to="/register"
+            className="text-blue-600 font-semibold ml-2"
+          >
+            Create Account
+          </Link>
+
+        </div>
 
       </div>
 

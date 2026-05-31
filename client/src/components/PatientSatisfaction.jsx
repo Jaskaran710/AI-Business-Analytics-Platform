@@ -4,45 +4,53 @@ const PatientSatisfaction = ({ analytics }) => {
 
   return (
 
-    <div className="bg-white p-6 rounded-xl shadow-md mt-6">
+    <div className="bg-white rounded-3xl shadow-xl border border-slate-200 p-8 mt-6">
 
-      <h2 className="text-2xl font-bold mb-6">
-        Patient Satisfaction Analytics
-      </h2>
+      <div className="mb-6">
 
-      <div className="grid grid-cols-3 gap-6">
+        <h2 className="text-3xl font-bold text-slate-800">
+          Patient Satisfaction Analytics
+        </h2>
 
-        <div className="border rounded-xl p-4">
+        <p className="text-slate-500 mt-2">
+          Satisfaction score performance overview
+        </p>
 
-          <h3 className="font-semibold">
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6">
+
+          <h3 className="text-slate-500 mb-2">
             Average Satisfaction
           </h3>
 
-          <p className="text-2xl font-bold">
+          <p className="text-4xl font-bold text-blue-600">
             {analytics.average_satisfaction?.toFixed(2)}
           </p>
 
         </div>
 
-        <div className="border rounded-xl p-4">
+        <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6">
 
-          <h3 className="font-semibold">
+          <h3 className="text-slate-500 mb-2">
             Highest Satisfaction
           </h3>
 
-          <p className="text-2xl font-bold">
+          <p className="text-4xl font-bold text-green-600">
             {analytics.max_satisfaction?.toFixed(2)}
           </p>
 
         </div>
 
-        <div className="border rounded-xl p-4">
+        <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6">
 
-          <h3 className="font-semibold">
+          <h3 className="text-slate-500 mb-2">
             Lowest Satisfaction
           </h3>
 
-          <p className="text-2xl font-bold">
+          <p className="text-4xl font-bold text-red-600">
             {analytics.min_satisfaction?.toFixed(2)}
           </p>
 

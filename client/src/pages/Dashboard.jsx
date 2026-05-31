@@ -15,7 +15,6 @@ import RevenueLineChart from "../charts/RevenueLineChart";
 import DataDistributionChart from "../charts/DataDistributionChart";
 
 import { AnalyticsContext } from "../context/AnalyticsContext";
-
 import { generateChartData } from "../utils/chartData";
 
 const Dashboard = () => {
@@ -78,66 +77,52 @@ const Dashboard = () => {
 
       <div>
 
-        
+        <div className="bg-white rounded-3xl shadow-lg border border-slate-200 p-8 mb-8">
 
-          <h1 className="text-4xl font-bold">
-            Business Dashboard
-          </h1>
+          <div className="flex justify-between items-center">
 
-<div className="bg-white rounded-3xl shadow-lg border border-slate-200 p-8 mb-8">
+            <div>
 
-  <div className="flex justify-between items-center">
+              <p className="text-blue-600 font-semibold mb-2">
+                AI Business Analytics Platform
+              </p>
 
-    <div>
+              <h1 className="text-5xl font-bold text-slate-800">
+                Executive Dashboard
+              </h1>
 
-      <p className="text-blue-600 font-semibold mb-2">
-        AI Business Analytics Platform
-      </p>
+              <p className="text-slate-500 mt-3">
+                Monitor KPIs, analytics, insights and business performance.
+              </p>
 
-      <h1 className="text-5xl font-bold text-slate-800">
-        Executive Dashboard
-      </h1>
+            </div>
 
-      <p className="text-slate-500 mt-3">
-        Monitor KPIs, analytics, insights and business performance.
-      </p>
+            <a
+              href="http://localhost:5000/api/report"
+              target="_blank"
+              rel="noreferrer"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-2xl font-semibold transition"
+            >
+              Export PDF Report
+            </a>
 
-    </div>
+          </div>
 
-    <a
-      href="http://localhost:5000/api/report"
-      target="_blank"
-      rel="noreferrer"
-      className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-2xl font-semibold transition"
-    >
-      Export PDF Report
-    </a>
+        </div>
 
-  </div>
-
-</div>
-
-        <AnalyticsCards
-          analytics={analytics}
-        />
+        <AnalyticsCards analytics={analytics} />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
-          <SalesBarChart
-            data={chartData}
-          />
+          <SalesBarChart data={chartData} />
 
-          <RevenueLineChart
-            data={chartData}
-          />
+          <RevenueLineChart data={chartData} />
 
         </div>
 
         <div className="mt-6">
 
-          <DataDistributionChart
-            data={chartData}
-          />
+          <DataDistributionChart data={chartData} />
 
         </div>
 
@@ -186,15 +171,7 @@ const Dashboard = () => {
     </DashboardLayout>
 
   );
+
 };
 
 export default Dashboard;
-
-
-
-
-
-
-
-
-

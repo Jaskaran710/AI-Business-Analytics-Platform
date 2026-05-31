@@ -22,11 +22,19 @@ const DepartmentAnalytics = ({ departmentCounts }) => {
 
   return (
 
-    <div className="bg-white p-6 rounded-xl shadow-md mt-6">
+    <div className="bg-white rounded-3xl shadow-xl border border-slate-200 p-8 mt-6">
 
-      <h2 className="text-2xl font-bold mb-6">
-        Department Referrals
-      </h2>
+      <div className="mb-6">
+
+        <h2 className="text-3xl font-bold text-slate-800">
+          Department Referrals
+        </h2>
+
+        <p className="text-slate-500 mt-2">
+          Referral distribution across departments
+        </p>
+
+      </div>
 
       <div className="h-96">
 
@@ -39,9 +47,7 @@ const DepartmentAnalytics = ({ departmentCounts }) => {
 
             <CartesianGrid strokeDasharray="3 3" />
 
-            <XAxis
-              dataKey="department"
-            />
+            <XAxis dataKey="department" />
 
             <YAxis />
 
@@ -49,6 +55,8 @@ const DepartmentAnalytics = ({ departmentCounts }) => {
 
             <Bar
               dataKey="count"
+              fill="#2563eb"
+              radius={[8, 8, 0, 0]}
             />
 
           </BarChart>
