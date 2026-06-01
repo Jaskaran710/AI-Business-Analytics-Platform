@@ -86,6 +86,27 @@ router.get(
             align: "center"
           }
         );
+doc.moveDown();
+
+doc
+  .fontSize(14)
+  .fillColor("#374151")
+  .text(
+    "Prepared By",
+    {
+      align: "center"
+    }
+  );
+
+doc
+  .fontSize(18)
+  .fillColor("#111827")
+  .text(
+    "Jaskaran Arora",
+    {
+      align: "center"
+    }
+  );
 
       doc.moveDown();
 
@@ -97,6 +118,24 @@ router.get(
       );
 
       doc.addPage();
+const addFooter = () => {
+
+  doc.fontSize(9);
+
+  doc.fillColor("#6b7280");
+
+  doc.text(
+    "AI Business Analytics Platform | Developed by Jaskaran Arora",
+    50,
+    760,
+    {
+      align: "center"
+    }
+  );
+
+};
+
+addFooter();
 
       /*
       ==================================
@@ -156,6 +195,44 @@ router.get(
       );
 
       doc.moveDown(2);
+/*
+==================================
+DATA QUALITY
+==================================
+*/
+
+doc
+  .fontSize(20)
+  .fillColor("#2563eb")
+  .text("Data Quality Assessment");
+
+doc.moveDown();
+
+const qualityScore =
+  analytics.missing_values === 0
+    ? 100
+    : Math.max(
+        0,
+        100 -
+        (
+          analytics.missing_values || 0
+        )
+      );
+
+doc
+  .fontSize(13)
+  .fillColor("black")
+  .text(
+    `Data Quality Score: ${qualityScore}%`
+  );
+
+doc.text(
+  qualityScore >= 95
+    ? "Excellent dataset quality with minimal data issues."
+    : "Dataset contains missing values requiring attention."
+  );
+
+doc.moveDown(2);
 
       /*
       ==================================
@@ -214,6 +291,52 @@ router.get(
       }
 
       doc.moveDown(2);
+/*
+==================================
+DEPARTMENT ANALYSIS
+==================================
+*/
+
+if (
+  analytics.department_counts
+) {
+
+  doc
+    .fontSize(20)
+    .fillColor("#2563eb")
+    .text("Department Analysis");
+
+  doc.moveDown();
+
+  const departments =
+    Object.entries(
+      analytics.department_counts
+    ).sort(
+      (a, b) =>
+        b[1] - a[1]
+    );
+
+  const topDepartment =
+    departments[0];
+
+  if (topDepartment) {
+
+    doc
+      .fontSize(13)
+      .fillColor("black")
+      .text(
+        `Top Department: ${topDepartment[0]}`
+      );
+
+    doc.text(
+      `Volume: ${topDepartment[1]} Patients`
+    );
+
+  }
+
+  doc.moveDown(2);
+
+}
 
       /*
       ==================================
@@ -248,33 +371,54 @@ router.get(
         "4. Use AI Insights page for deeper investigation."
       );
 
-      doc.moveDown(2);
+            doc.moveDown(2);
 
-      /*
-      ==================================
-      RAW ANALYTICS
-      ==================================
-      */
+      doc.addPage();
+
+      doc.moveDown(6);
 
       doc
-        .fontSize(20)
+        .fontSize(26)
         .fillColor("#2563eb")
-        .text("Analytics Snapshot");
+        .text(
+          "Thank You",
+          {
+            align: "center"
+          }
+        );
+
+      doc.moveDown(2);
+
+      doc
+        .fontSize(16)
+        .fillColor("black")
+        .text(
+          "AI Business Analytics Platform",
+          {
+            align: "center"
+          }
+        );
 
       doc.moveDown();
 
-      Object.entries(
-        analytics
-      ).forEach(([key, value]) => {
+      doc
+        .fontSize(14)
+        .text(
+          "Designed & Developed By",
+          {
+            align: "center"
+          }
+        );
 
-        doc
-          .fontSize(11)
-          .fillColor("black")
-          .text(
-            `${key}: ${JSON.stringify(value)}`
-          );
-
-      });
+      doc
+        .fontSize(20)
+        .fillColor("#111827")
+        .text(
+          "Jaskaran Arora",
+          {
+            align: "center"
+          }
+        );
 
       doc.end();
 
