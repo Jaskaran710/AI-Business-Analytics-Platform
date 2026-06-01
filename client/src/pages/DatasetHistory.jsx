@@ -254,12 +254,53 @@ const DatasetHistory = () => {
                         </div>
 
                         <button
-                          onClick={() => {
+                          onClick={async () => {
 
-                            window.open(
-                              `http://localhost:5000/api/report/${dataset._id}`,
-                              "_blank"
-                            );
+                            try {
+
+                              const response =
+                                await axios.get(
+                                  `http://localhost:5000/api/report/${dataset._id}`,
+                                  {
+                                    responseType: "blob",
+                                    headers: {
+                                      Authorization:
+                                        "Bearer " +
+                                        localStorage.getItem("token")
+                                    }
+                                  }
+                                );
+
+                              const url =
+                                window.URL.createObjectURL(
+                                  new Blob([response.data])
+                                );
+
+                              const link =
+                                document.createElement("a");
+
+                              link.href = url;
+
+                              link.download =
+                                `${dataset.fileName}.pdf`;
+
+                              document.body.appendChild(link);
+
+                              link.click();
+
+                              link.remove();
+
+                              window.URL.revokeObjectURL(url);
+
+                            } catch (error) {
+
+                              console.error(error);
+
+                              alert(
+                                "Failed to download report"
+                              );
+
+                            }
 
                           }}
                           className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-2xl font-semibold flex items-center gap-2 transition"
