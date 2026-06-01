@@ -115,20 +115,29 @@ const AskData = () => {
 
       <div className="max-w-7xl mx-auto">
 
-        <div className="bg-gradient-to-r from-violet-600 via-indigo-600 to-blue-600 rounded-3xl p-8 text-white shadow-xl mb-8">
+        {/* HERO */}
+
+        <div className="bg-gradient-to-r from-violet-600 via-indigo-600 to-blue-600 rounded-3xl p-5 sm:p-8 text-white shadow-xl mb-8">
 
           <div className="flex items-center gap-4">
 
-            <Brain size={50} />
+            <Brain
+              size={40}
+              className="flex-shrink-0"
+            />
 
             <div>
 
-              <h1 className="text-5xl font-bold">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold">
+
                 AI Data Copilot
+
               </h1>
 
-              <p className="text-violet-100 mt-2">
+              <p className="text-violet-100 mt-2 text-sm sm:text-base">
+
                 Ask natural language questions about your dataset
+
               </p>
 
             </div>
@@ -137,12 +146,18 @@ const AskData = () => {
 
         </div>
 
-        <div className="grid lg:grid-cols-4 gap-6">
+        {/* MAIN LAYOUT */}
+
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+
+          {/* SUGGESTIONS */}
 
           <div className="bg-white rounded-3xl shadow-xl border border-slate-200 p-6 h-fit">
 
             <h2 className="font-bold text-xl mb-4">
+
               Suggested Questions
+
             </h2>
 
             <div className="space-y-3">
@@ -195,30 +210,47 @@ const AskData = () => {
 
           </div>
 
+          {/* CHAT */}
+
           <div className="lg:col-span-3">
 
             <div
               ref={chatContainerRef}
-              className="bg-white rounded-3xl shadow-xl border border-slate-200 h-[600px] overflow-y-auto p-6"
+              className="
+                bg-white
+                rounded-3xl
+                shadow-xl
+                border
+                border-slate-200
+                h-[500px]
+                sm:h-[600px]
+                overflow-y-auto
+                p-4
+                sm:p-6
+              "
             >
 
               {
 
                 messages.length === 0 && (
 
-                  <div className="text-center mt-32">
+                  <div className="text-center mt-20 sm:mt-32">
 
                     <Sparkles
                       size={60}
                       className="mx-auto text-violet-600 mb-4"
                     />
 
-                    <h2 className="text-3xl font-bold text-slate-800">
+                    <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">
+
                       Start a Conversation
+
                     </h2>
 
                     <p className="text-slate-500 mt-2">
+
                       Ask anything about your dataset.
+
                     </p>
 
                   </div>
@@ -249,8 +281,8 @@ const AskData = () => {
                         <div
                           className={
                             message.role === "user"
-                              ? "bg-blue-600 text-white p-4 rounded-3xl max-w-3xl"
-                              : "bg-slate-100 text-slate-800 p-4 rounded-3xl max-w-3xl"
+                              ? "bg-blue-600 text-white p-4 rounded-3xl max-w-full sm:max-w-3xl"
+                              : "bg-slate-100 text-slate-800 p-4 rounded-3xl max-w-full sm:max-w-3xl"
                           }
                         >
 
@@ -280,7 +312,11 @@ const AskData = () => {
 
                           </div>
 
-                          {message.content}
+                          <div className="whitespace-pre-wrap break-words">
+
+                            {message.content}
+
+                          </div>
 
                         </div>
 
@@ -313,7 +349,9 @@ const AskData = () => {
 
             </div>
 
-            <div className="mt-5 flex gap-3">
+            {/* INPUT */}
+
+            <div className="mt-5 flex flex-col sm:flex-row gap-3">
 
               <input
                 value={question}
@@ -322,7 +360,14 @@ const AskData = () => {
                     e.target.value
                   )
                 }
-                className="flex-1 border border-slate-300 rounded-2xl px-5 py-4"
+                className="
+                  flex-1
+                  border
+                  border-slate-300
+                  rounded-2xl
+                  px-5
+                  py-4
+                "
                 placeholder="Ask anything about your data..."
                 onKeyDown={(e) => {
 
@@ -341,7 +386,19 @@ const AskData = () => {
               <button
                 onClick={handleAsk}
                 disabled={loading}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-8 rounded-2xl transition flex items-center gap-2"
+                className="
+                  bg-blue-600
+                  hover:bg-blue-700
+                  text-white
+                  px-8
+                  py-4
+                  rounded-2xl
+                  transition
+                  flex
+                  items-center
+                  justify-center
+                  gap-2
+                "
               >
 
                 <Send size={18} />

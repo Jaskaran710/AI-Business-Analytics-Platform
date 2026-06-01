@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Dashboard from "../pages/Dashboard";
+import LandingPage from "../pages/LandingPage";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Upload from "../pages/Upload";
@@ -19,14 +20,10 @@ const AppRoutes = () => {
 
       <Routes>
 
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
+<Route
+  path="/"
+  element={<LandingPage />}
+/>
 
         <Route
           path="/dashboard"

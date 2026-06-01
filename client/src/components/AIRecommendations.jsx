@@ -2,7 +2,8 @@ import {
   Sparkles,
   Brain,
   AlertTriangle,
-  TrendingUp
+  TrendingUp,
+  Database
 } from "lucide-react";
 
 const AIRecommendations = ({ analytics }) => {
@@ -11,70 +12,130 @@ const AIRecommendations = ({ analytics }) => {
 
   const recommendations = [];
 
+  /*
+  ==========================
+  DATA QUALITY INSIGHTS
+  ==========================
+  */
+
   if (
-    analytics.average_wait_time &&
-    analytics.average_wait_time > 30
+    analytics.missing_values &&
+    analytics.missing_values > 0
   ) {
 
     recommendations.push({
       type: "warning",
-      text: "Average patient wait time is high. Consider increasing staffing levels."
+      text: `${analytics.missing_values} missing values detected. Consider cleaning the dataset before making business decisions.`
     });
 
   }
 
   if (
-    analytics.average_satisfaction &&
-    analytics.average_satisfaction < 5
+    analytics.rows &&
+    analytics.rows < 100
   ) {
 
     recommendations.push({
       type: "warning",
-      text: "Patient satisfaction is below target. Review service quality processes."
+      text: "Dataset contains a limited number of records. Additional data may improve analytical accuracy."
     });
 
   }
 
   if (
-    analytics.department_counts
+    analytics.rows &&
+    analytics.rows >= 1000
   ) {
 
-    const topDepartment =
-      Object.entries(
-        analytics.department_counts
-      ).sort(
-        (a, b) => b[1] - a[1]
-      )[0];
+    recommendations.push({
+      type: "success",
+      text: "Dataset size is sufficient for meaningful business intelligence analysis."
+    });
 
-    if (topDepartment) {
+  }
 
-      recommendations.push({
-        type: "success",
-        text: `${topDepartment[0]} is currently generating the highest patient volume.`
-      });
+  /*
+  ==========================
+  SALES INSIGHTS
+  ==========================
+  */
 
-    }
+  if (
+    analytics.total_sales
+  ) {
+
+    recommendations.push({
+      type: "success",
+      text: `Total sales volume of ${analytics.total_sales.toLocaleString()} indicates active business performance.`
+    });
+
+  }
+
+  if (
+    analytics.average_sales
+  ) {
+
+    recommendations.push({
+      type: "success",
+      text: `Average sales value is ${analytics.average_sales.toFixed(2)}. Monitor this KPI over time for growth trends.`
+    });
+
+  }
+
+  /*
+  ==========================
+  COLUMN INSIGHTS
+  ==========================
+  */
+
+  if (
+    analytics.columns
+  ) {
+
+    recommendations.push({
+      type: "success",
+      text: `Dataset contains ${analytics.columns} columns available for advanced analytics and AI exploration.`
+    });
+
+  }
+
+  /*
+  ==========================
+  FALLBACK
+  ==========================
+  */
+
+  if (
+    recommendations.length === 0
+  ) {
+
+    recommendations.push({
+      type: "success",
+      text: "Dataset appears healthy and ready for further AI-driven analysis."
+    });
 
   }
 
   return (
 
-    <div className="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden mt-6">
+    <div className="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden">
 
-      <div className="bg-gradient-to-r from-violet-600 to-indigo-600 text-white p-8">
+      {/* HEADER */}
+
+      <div className="bg-gradient-to-r from-violet-600 to-indigo-600 text-white p-5 sm:p-8">
 
         <div className="flex items-center gap-3">
 
-          <Brain size={30} />
+          <Brain size={26} />
 
           <div>
 
-            <h2 className="text-3xl font-bold">
+            <h2 className="text-2xl sm:text-3xl font-bold">
               AI Recommendations
             </h2>
 
-            <p className="text-violet-100">
-              AI-generated business intelligence insights
+            <p className="text-violet-100 text-sm sm:text-base">
+              Intelligent insights generated from dataset analytics
             </p>
 
           </div>
@@ -83,9 +144,11 @@ const AIRecommendations = ({ analytics }) => {
 
       </div>
 
-      <div className="p-8">
+      {/* CONTENT */}
 
-        <div className="space-y-5">
+      <div className="p-5 sm:p-8">
+
+        <div className="space-y-4">
 
           {
 
@@ -94,33 +157,41 @@ const AIRecommendations = ({ analytics }) => {
 
                 <div
                   key={index}
-                  className={`rounded-2xl p-5 border ${
-                    item.type === "warning"
-                      ? "bg-orange-50 border-orange-200"
-                      : "bg-green-50 border-green-200"
-                  }`}
+                  className={`
+                    rounded-2xl
+                    p-4
+                    sm:p-5
+                    border
+                    ${
+                      item.type === "warning"
+                        ? "bg-orange-50 border-orange-200"
+                        : "bg-green-50 border-green-200"
+                    }
+                  `}
                 >
 
-                  <div className="flex gap-4">
+                  <div className="flex gap-3 sm:gap-4">
 
                     {
 
                       item.type === "warning"
                         ? (
                           <AlertTriangle
-                            className="text-orange-600"
+                            className="text-orange-600 flex-shrink-0"
                           />
                         )
                         : (
                           <TrendingUp
-                            className="text-green-600"
+                            className="text-green-600 flex-shrink-0"
                           />
                         )
 
                     }
 
-                    <p className="text-slate-700 font-medium">
+                    <p className="text-slate-700 font-medium text-sm sm:text-base">
+
                       {item.text}
+
                     </p>
 
                   </div>
@@ -132,25 +203,27 @@ const AIRecommendations = ({ analytics }) => {
 
           }
 
-          {recommendations.length === 0 && (
+        </div>
 
-            <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6">
+        {/* FOOTER */}
 
-              <div className="flex items-center gap-3">
+        <div className="mt-6 bg-slate-50 border border-slate-200 rounded-2xl p-4">
 
-                <Sparkles
-                  className="text-blue-600"
-                />
+          <div className="flex items-center gap-3">
 
-                <p className="font-medium text-slate-700">
-                  No critical issues detected. Dataset performance appears healthy.
-                </p>
+            <Database
+              size={18}
+              className="text-blue-600"
+            />
 
-              </div>
+            <p className="text-sm text-slate-600">
 
-            </div>
+              Insights generated from dataset structure, quality metrics,
+              and business analytics indicators.
 
-          )}
+            </p>
+
+          </div>
 
         </div>
 

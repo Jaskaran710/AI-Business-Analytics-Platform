@@ -51,7 +51,7 @@ const AnalyticsCards = ({ analytics }) => {
 
   return (
 
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 mb-8">
 
       {
 
@@ -63,33 +63,50 @@ const AnalyticsCards = ({ analytics }) => {
 
             <div
               key={index}
-              className={`bg-gradient-to-br ${card.gradient} text-white rounded-3xl shadow-xl p-7 hover:scale-[1.03] transition-all duration-300`}
+              className={`
+                bg-gradient-to-br
+                ${card.gradient}
+                text-white
+                rounded-3xl
+                shadow-xl
+                p-5
+                sm:p-7
+                hover:scale-[1.02]
+                transition-all
+                duration-300
+              `}
             >
 
-              <div className="flex justify-between items-start mb-6">
+              <div className="flex justify-between items-start mb-4 sm:mb-6">
 
-                <div>
+                <div className="min-w-0">
 
-                  <p className="text-white/80 text-sm uppercase tracking-wider">
+                  <p className="text-white/80 text-xs sm:text-sm uppercase tracking-wider">
+
                     {card.title}
+
                   </p>
 
-                  <h2 className="text-4xl font-bold mt-2">
+                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mt-2 break-words">
+
                     {card.value}
+
                   </h2>
 
                 </div>
 
-                <div className="bg-white/20 p-3 rounded-2xl">
+                <div className="bg-white/20 p-2 sm:p-3 rounded-2xl flex-shrink-0">
 
-                  <Icon size={28} />
+                  <Icon size={24} />
 
                 </div>
 
               </div>
 
-              <p className="text-white/90 font-medium">
+              <p className="text-white/90 text-sm sm:text-base font-medium">
+
                 {card.subtitle}
+
               </p>
 
             </div>

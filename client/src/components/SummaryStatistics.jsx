@@ -15,19 +15,21 @@ const SummaryStatistics = ({ statistics }) => {
 
     <div className="mb-8">
 
-      <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-violet-600 rounded-3xl p-8 text-white shadow-xl mb-6">
+      {/* HEADER */}
+
+      <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-violet-600 rounded-3xl p-5 sm:p-8 text-white shadow-xl mb-6">
 
         <div className="flex items-center gap-3">
 
-          <BarChart3 size={30} />
+          <BarChart3 size={26} />
 
           <div>
 
-            <h2 className="text-3xl font-bold">
+            <h2 className="text-2xl sm:text-3xl font-bold">
               Summary Statistics
             </h2>
 
-            <p className="text-indigo-100">
+            <p className="text-indigo-100 text-sm sm:text-base">
               AI Generated Statistical Overview
             </p>
 
@@ -37,89 +39,129 @@ const SummaryStatistics = ({ statistics }) => {
 
       </div>
 
+      {/* STAT CARDS */}
+
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
 
-        {columns.map((column) => (
+        {
 
-          <div
-            key={column}
-            className="bg-white rounded-3xl shadow-xl border border-slate-200 p-6 hover:shadow-2xl hover:-translate-y-1 transition"
-          >
+          columns.map((column) => (
 
-            <h3 className="text-xl font-bold text-slate-800 mb-6">
-              {column}
-            </h3>
+            <div
+              key={column}
+              className="
+                bg-white
+                rounded-3xl
+                shadow-xl
+                border
+                border-slate-200
+                p-5
+                sm:p-6
+                hover:shadow-2xl
+                hover:-translate-y-1
+                transition
+              "
+            >
 
-            <div className="space-y-4">
+              <h3 className="text-lg sm:text-xl font-bold text-slate-800 mb-6 break-words">
 
-              <div className="flex justify-between items-center bg-blue-50 p-4 rounded-2xl">
+                {column}
 
-                <div className="flex items-center gap-2">
+              </h3>
 
-                  <TrendingUp
-                    size={18}
-                    className="text-blue-600"
-                  />
+              <div className="space-y-4">
 
-                  <span className="font-medium">
-                    Mean
+                {/* MEAN */}
+
+                <div className="flex justify-between items-center bg-blue-50 p-4 rounded-2xl">
+
+                  <div className="flex items-center gap-2 min-w-0">
+
+                    <TrendingUp
+                      size={18}
+                      className="text-blue-600 flex-shrink-0"
+                    />
+
+                    <span className="font-medium text-sm sm:text-base">
+                      Mean
+                    </span>
+
+                  </div>
+
+                  <span className="font-bold text-blue-700 text-sm sm:text-base text-right">
+
+                    {
+                      statistics[column]?.mean?.toFixed?.(2)
+                      ?? "N/A"
+                    }
+
                   </span>
 
                 </div>
 
-                <span className="font-bold text-blue-700">
-                  {statistics[column]?.mean?.toFixed?.(2) ?? "N/A"}
-                </span>
+                {/* MIN */}
 
-              </div>
+                <div className="flex justify-between items-center bg-red-50 p-4 rounded-2xl">
 
-              <div className="flex justify-between items-center bg-red-50 p-4 rounded-2xl">
+                  <div className="flex items-center gap-2 min-w-0">
 
-                <div className="flex items-center gap-2">
+                    <ArrowDown
+                      size={18}
+                      className="text-red-600 flex-shrink-0"
+                    />
 
-                  <ArrowDown
-                    size={18}
-                    className="text-red-600"
-                  />
+                    <span className="font-medium text-sm sm:text-base">
+                      Minimum
+                    </span>
 
-                  <span className="font-medium">
-                    Minimum
+                  </div>
+
+                  <span className="font-bold text-red-700 text-sm sm:text-base text-right">
+
+                    {
+                      statistics[column]?.min?.toFixed?.(2)
+                      ?? "N/A"
+                    }
+
                   </span>
 
                 </div>
 
-                <span className="font-bold text-red-700">
-                  {statistics[column]?.min?.toFixed?.(2) ?? "N/A"}
-                </span>
+                {/* MAX */}
 
-              </div>
+                <div className="flex justify-between items-center bg-green-50 p-4 rounded-2xl">
 
-              <div className="flex justify-between items-center bg-green-50 p-4 rounded-2xl">
+                  <div className="flex items-center gap-2 min-w-0">
 
-                <div className="flex items-center gap-2">
+                    <ArrowUp
+                      size={18}
+                      className="text-green-600 flex-shrink-0"
+                    />
 
-                  <ArrowUp
-                    size={18}
-                    className="text-green-600"
-                  />
+                    <span className="font-medium text-sm sm:text-base">
+                      Maximum
+                    </span>
 
-                  <span className="font-medium">
-                    Maximum
+                  </div>
+
+                  <span className="font-bold text-green-700 text-sm sm:text-base text-right">
+
+                    {
+                      statistics[column]?.max?.toFixed?.(2)
+                      ?? "N/A"
+                    }
+
                   </span>
 
                 </div>
-
-                <span className="font-bold text-green-700">
-                  {statistics[column]?.max?.toFixed?.(2) ?? "N/A"}
-                </span>
 
               </div>
 
             </div>
 
-          </div>
+          ))
 
-        ))}
+        }
 
       </div>
 

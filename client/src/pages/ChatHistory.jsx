@@ -12,35 +12,44 @@ import DashboardLayout from "../layouts/DashboardLayout";
 
 const ChatHistory = () => {
 
-  const [chats, setChats] = useState([]);
-  const [search, setSearch] = useState("");
+  const [chats, setChats] =
+    useState([]);
+
+  const [search, setSearch] =
+    useState("");
 
   useEffect(() => {
 
-    const fetchChats = async () => {
+    const fetchChats =
+      async () => {
 
-      try {
+        try {
 
-        const response = await axios.get(
-          "http://localhost:5000/api/ai/history",
-          {
-            headers: {
-              Authorization:
-                "Bearer " +
-                localStorage.getItem("token")
-            }
-          }
-        );
+          const response =
+            await axios.get(
+              "http://localhost:5000/api/ai/history",
+              {
+                headers: {
+                  Authorization:
+                    "Bearer " +
+                    localStorage.getItem(
+                      "token"
+                    )
+                }
+              }
+            );
 
-        setChats(response.data);
+          setChats(
+            response.data
+          );
 
-      } catch (error) {
+        } catch (error) {
 
-        console.error(error);
+          console.error(error);
 
-      }
+        }
 
-    };
+      };
 
     fetchChats();
 
@@ -53,12 +62,17 @@ const ChatHistory = () => {
         search.toLowerCase();
 
       return (
+
         chat.question
           ?.toLowerCase()
-          .includes(query) ||
+          .includes(query)
+
+        ||
+
         chat.answer
           ?.toLowerCase()
           .includes(query)
+
       );
 
     });
@@ -67,22 +81,31 @@ const ChatHistory = () => {
 
     <DashboardLayout>
 
-      <div>
+      <div className="space-y-8">
 
-        <div className="bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 rounded-3xl p-8 text-white shadow-xl mb-8">
+        {/* HERO */}
+
+        <div className="bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 rounded-3xl p-5 sm:p-8 text-white shadow-xl">
 
           <div className="flex items-center gap-4">
 
-            <MessageSquare size={48} />
+            <MessageSquare
+              size={40}
+              className="flex-shrink-0"
+            />
 
             <div>
 
-              <h1 className="text-5xl font-bold">
+              <h1 className="text-3xl sm:text-5xl font-bold">
+
                 AI Conversation History
+
               </h1>
 
-              <p className="text-indigo-100 mt-2">
+              <p className="text-indigo-100 mt-2 text-sm sm:text-base">
+
                 Review previous conversations with AI Copilot
+
               </p>
 
             </div>
@@ -91,23 +114,29 @@ const ChatHistory = () => {
 
         </div>
 
-        <div className="bg-white rounded-3xl shadow-xl border border-slate-200 p-6 mb-8">
+        {/* SEARCH */}
 
-          <div className="flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
+        <div className="bg-white rounded-3xl shadow-xl border border-slate-200 p-5 sm:p-6">
+
+          <div className="flex flex-col lg:flex-row gap-5 lg:items-center lg:justify-between">
 
             <div>
 
               <p className="text-slate-500">
+
                 Total Conversations
+
               </p>
 
-              <h2 className="text-4xl font-bold text-slate-800">
+              <h2 className="text-3xl sm:text-4xl font-bold text-slate-800">
+
                 {filteredChats.length}
+
               </h2>
 
             </div>
 
-            <div className="relative w-full md:w-96">
+            <div className="relative w-full lg:w-96">
 
               <Search
                 size={18}
@@ -122,7 +151,15 @@ const ChatHistory = () => {
                   )
                 }
                 placeholder="Search conversations..."
-                className="w-full border border-slate-300 rounded-2xl pl-12 pr-4 py-3"
+                className="
+                  w-full
+                  border
+                  border-slate-300
+                  rounded-2xl
+                  pl-12
+                  pr-4
+                  py-3
+                "
               />
 
             </div>
@@ -135,19 +172,23 @@ const ChatHistory = () => {
 
           filteredChats.length === 0 ? (
 
-            <div className="bg-white rounded-3xl shadow-xl border border-slate-200 p-16 text-center">
+            <div className="bg-white rounded-3xl shadow-xl border border-slate-200 p-8 sm:p-16 text-center">
 
               <Brain
                 size={70}
                 className="mx-auto text-violet-600 mb-4"
               />
 
-              <h2 className="text-3xl font-bold text-slate-800">
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">
+
                 No Conversations Found
+
               </h2>
 
               <p className="text-slate-500 mt-2">
+
                 Start using AI Copilot to build conversation history.
+
               </p>
 
             </div>
@@ -163,19 +204,30 @@ const ChatHistory = () => {
 
                     <div
                       key={chat._id}
-                      className="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden"
+                      className="
+                        bg-white
+                        rounded-3xl
+                        shadow-xl
+                        border
+                        border-slate-200
+                        overflow-hidden
+                      "
                     >
+
+                      {/* HEADER */}
 
                       <div className="bg-slate-900 text-white p-5">
 
-                        <div className="flex items-center justify-between">
+                        <div className="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
 
                           <div className="flex items-center gap-3">
 
                             <Brain size={22} />
 
                             <span className="font-semibold">
+
                               AI Conversation
+
                             </span>
 
                           </div>
@@ -194,11 +246,13 @@ const ChatHistory = () => {
 
                       </div>
 
-                      <div className="p-6">
+                      {/* QUESTION */}
+
+                      <div className="p-5 sm:p-6">
 
                         <div className="flex gap-3 mb-5">
 
-                          <div className="bg-blue-600 p-3 rounded-2xl text-white">
+                          <div className="bg-blue-600 p-3 rounded-2xl text-white h-fit">
 
                             <User size={18} />
 
@@ -207,20 +261,26 @@ const ChatHistory = () => {
                           <div className="bg-blue-50 rounded-2xl p-4 flex-1">
 
                             <p className="font-semibold text-blue-700 mb-1">
+
                               Question
+
                             </p>
 
-                            <p className="text-slate-700">
+                            <p className="text-slate-700 break-words">
+
                               {chat.question}
+
                             </p>
 
                           </div>
 
                         </div>
 
+                        {/* ANSWER */}
+
                         <div className="flex gap-3">
 
-                          <div className="bg-violet-600 p-3 rounded-2xl text-white">
+                          <div className="bg-violet-600 p-3 rounded-2xl text-white h-fit">
 
                             <Brain size={18} />
 
@@ -228,12 +288,16 @@ const ChatHistory = () => {
 
                           <div className="bg-violet-50 rounded-2xl p-4 flex-1">
 
-                            <p className="font-semibold text-violet-700 mb-1">
+                            <p className="font-semibold text-violet-700 mb-2">
+
                               AI Response
+
                             </p>
 
-                            <p className="text-slate-700 whitespace-pre-wrap">
+                            <p className="text-slate-700 whitespace-pre-wrap break-words">
+
                               {chat.answer}
+
                             </p>
 
                           </div>

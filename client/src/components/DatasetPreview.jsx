@@ -9,14 +9,14 @@ const DatasetPreview = ({ previewData }) => {
 
     return (
 
-      <div className="bg-white rounded-3xl shadow-xl border border-slate-200 p-12 text-center">
+      <div className="bg-white rounded-3xl shadow-xl border border-slate-200 p-6 sm:p-12 text-center">
 
         <Database
           size={60}
           className="mx-auto text-slate-400 mb-4"
         />
 
-        <h2 className="text-3xl font-bold text-slate-700">
+        <h2 className="text-2xl sm:text-3xl font-bold text-slate-700">
           No Dataset Preview Available
         </h2>
 
@@ -34,35 +34,41 @@ const DatasetPreview = ({ previewData }) => {
 
     <div className="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden">
 
-      <div className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white p-8">
+      {/* HEADER */}
 
-        <div className="flex items-center justify-between">
+      <div className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white p-5 sm:p-8">
+
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 
           <div>
 
             <div className="flex items-center gap-3 mb-2">
 
-              <TableProperties size={28} />
+              <TableProperties size={24} />
 
-              <h2 className="text-3xl font-bold">
+              <h2 className="text-2xl sm:text-3xl font-bold">
+
                 Dataset Preview
+
               </h2>
 
             </div>
 
-            <p className="text-blue-100">
+            <p className="text-blue-100 text-sm sm:text-base">
+
               First {previewData.length} records from your uploaded dataset
+
             </p>
 
           </div>
 
-          <div className="bg-white/20 px-5 py-3 rounded-2xl">
+          <div className="bg-white/20 px-4 py-3 rounded-2xl w-fit">
 
             <p className="text-sm text-blue-100">
               Records
             </p>
 
-            <p className="text-2xl font-bold">
+            <p className="text-xl sm:text-2xl font-bold">
               {previewData.length}
             </p>
 
@@ -72,9 +78,11 @@ const DatasetPreview = ({ previewData }) => {
 
       </div>
 
-      <div className="overflow-auto max-h-[600px]">
+      {/* TABLE */}
 
-        <table className="min-w-full">
+      <div className="overflow-x-auto overflow-y-auto max-h-[600px]">
+
+        <table className="min-w-[900px] w-full">
 
           <thead className="sticky top-0 bg-slate-900 z-10">
 
@@ -87,7 +95,19 @@ const DatasetPreview = ({ previewData }) => {
 
                   <th
                     key={key}
-                    className="px-6 py-4 text-left text-sm font-semibold text-white uppercase tracking-wider"
+                    className="
+                      px-4
+                      sm:px-6
+                      py-4
+                      text-left
+                      text-xs
+                      sm:text-sm
+                      font-semibold
+                      text-white
+                      uppercase
+                      tracking-wider
+                      whitespace-nowrap
+                    "
                   >
                     {key}
                   </th>
@@ -107,11 +127,17 @@ const DatasetPreview = ({ previewData }) => {
 
                   <tr
                     key={rowIndex}
-                    className={`border-b border-slate-200 hover:bg-blue-50 transition ${
-                      rowIndex % 2 === 0
-                        ? "bg-white"
-                        : "bg-slate-50"
-                    }`}
+                    className={`
+                      border-b
+                      border-slate-200
+                      hover:bg-blue-50
+                      transition
+                      ${
+                        rowIndex % 2 === 0
+                          ? "bg-white"
+                          : "bg-slate-50"
+                      }
+                    `}
                   >
 
                     {
@@ -120,7 +146,14 @@ const DatasetPreview = ({ previewData }) => {
 
                           <td
                             key={colIndex}
-                            className="px-6 py-4 text-slate-700 whitespace-nowrap"
+                            className="
+                              px-4
+                              sm:px-6
+                              py-4
+                              text-slate-700
+                              text-sm
+                              whitespace-nowrap
+                            "
                           >
                             {String(value)}
                           </td>

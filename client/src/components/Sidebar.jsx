@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import {
   Link,
   useNavigate,
@@ -12,18 +14,22 @@ import {
   History,
   Database,
   LogOut,
-  UserCircle
+  UserCircle,
+  Menu,
+  X
 } from "lucide-react";
 
 const Sidebar = () => {
 
+  const [mobileOpen, setMobileOpen] =
+    useState(false);
+
   const navigate = useNavigate();
   const location = useLocation();
 
-  const user =
-    JSON.parse(
-      localStorage.getItem("user")
-    );
+  const user = JSON.parse(
+    localStorage.getItem("user")
+  );
 
   const handleLogout = () => {
 
@@ -77,110 +83,268 @@ const Sidebar = () => {
 
   return (
 
-    <aside className="w-72 min-h-screen bg-slate-900 border-r border-slate-800 flex flex-col">
+    <>
 
-      <div className="p-6 border-b border-slate-800">
+      {/* MOBILE MENU BUTTON */}
 
-        <h1 className="text-3xl font-bold text-white">
-          AI Analytics
-        </h1>
+      <button
+        onClick={() =>
+          setMobileOpen(
+            !mobileOpen
+          )
+        }
+        className="
+          fixed
+          bottom-5
+          left-5
+          lg:hidden
+          z-50
 
-        <p className="text-slate-400 mt-2">
-          Business Intelligence Platform
-        </p>
+          bg-blue-600
+          hover:bg-blue-700
 
-      </div>
+          text-white
 
-      <div className="p-4 flex-1">
+          p-3
+          rounded-full
 
-        <div className="space-y-2">
+          shadow-xl
+          transition
+        "
+      >
 
-          {
+        {
+          mobileOpen
+            ? <X size={22} />
+            : <Menu size={22} />
+        }
 
-            menuItems.map((item) => {
+      </button>
 
-              const Icon = item.icon;
+      {/* OVERLAY */}
 
-              const active =
-                location.pathname === item.path;
+      {
 
-              return (
+        mobileOpen && (
 
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className={`flex items-center gap-3 p-4 rounded-xl transition-all ${
-                    active
-                      ? "bg-blue-600 text-white shadow-lg"
-                      : "text-slate-300 hover:bg-slate-800"
-                  }`}
-                >
+          <div
+            onClick={() =>
+              setMobileOpen(
+                false
+              )
+            }
+            className="
+              fixed
+              inset-0
+              bg-black/50
+              backdrop-blur-sm
+              z-40
+              lg:hidden
+            "
+          />
 
-                  <Icon size={20} />
+        )
 
-                  {item.label}
+      }
 
-                </Link>
+      {/* SIDEBAR */}
 
-              );
+      <aside
+        className={`
+          fixed
+          lg:relative
 
-            })
+          top-0
+          left-0
 
+          z-50
+
+          w-[260px]
+          sm:w-72
+
+          min-h-screen
+
+          bg-slate-900
+          border-r
+          border-slate-800
+
+          flex
+          flex-col
+
+          transition-transform
+          duration-300
+
+          ${
+            mobileOpen
+              ? "translate-x-0"
+              : "-translate-x-full lg:translate-x-0"
           }
+        `}
+      >
+
+        {/* HEADER */}
+
+        <div className="p-5 border-b border-slate-800">
+
+          <h1 className="text-2xl sm:text-3xl font-bold text-white">
+
+            AI Analytics
+
+          </h1>
+
+          <p className="text-slate-400 mt-2 text-sm">
+
+            Business Intelligence Platform
+
+          </p>
 
         </div>
 
-      </div>
+        {/* MENU */}
 
-      <div className="p-4 border-t border-slate-800">
+        <div className="p-4 flex-1">
 
-        <div className="bg-gradient-to-br from-slate-800 to-slate-700 rounded-3xl p-5 mb-4 border border-slate-600 shadow-lg">
+          <div className="space-y-2">
 
-          <div className="flex items-center gap-4">
+            {
 
-            <div className="bg-blue-600 p-3 rounded-2xl">
+              menuItems.map((item) => {
 
-              <UserCircle
-                size={36}
-                className="text-white"
-              />
+                const Icon =
+                  item.icon;
 
-            </div>
+                const active =
+                  location.pathname ===
+                  item.path;
 
-            <div>
+                return (
 
-              <p className="text-white font-bold text-lg">
-                {user?.name || "Analytics User"}
-              </p>
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    onClick={() =>
+                      setMobileOpen(
+                        false
+                      )
+                    }
+                    className={`
+                      flex
+                      items-center
+                      gap-3
+                      p-4
+                      rounded-xl
+                      transition-all
 
-              <p className="text-slate-300 text-sm">
-                {user?.email || ""}
-              </p>
+                      ${
+                        active
+                          ? "bg-blue-600 text-white shadow-lg"
+                          : "text-slate-300 hover:bg-slate-800"
+                      }
+                    `}
+                  >
 
-              <p className="text-green-400 text-xs mt-2 font-medium">
-                ● Active Session
-              </p>
+                    <Icon size={20} />
 
-            </div>
+                    <span>
+
+                      {item.label}
+
+                    </span>
+
+                  </Link>
+
+                );
+
+              })
+
+            }
 
           </div>
 
         </div>
 
-        <button
-          onClick={handleLogout}
-          className="w-full flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white p-3 rounded-xl transition font-semibold"
-        >
+        {/* USER CARD */}
 
-          <LogOut size={18} />
+        <div className="p-4 border-t border-slate-800">
 
-          Logout
+          <div className="bg-gradient-to-br from-slate-800 to-slate-700 rounded-3xl p-4 mb-4 border border-slate-600 shadow-lg">
 
-        </button>
+            <div className="flex items-center gap-3">
 
-      </div>
+              <div className="bg-blue-600 p-3 rounded-2xl">
 
-    </aside>
+                <UserCircle
+                  size={32}
+                  className="text-white"
+                />
+
+              </div>
+
+              <div className="min-w-0">
+
+                <p className="text-white font-bold truncate">
+
+                  {
+                    user?.name ||
+                    "Analytics User"
+                  }
+
+                </p>
+
+                <p className="text-slate-300 text-sm truncate">
+
+                  {
+                    user?.email ||
+                    ""
+                  }
+
+                </p>
+
+                <p className="text-green-400 text-xs mt-2 font-medium">
+
+                  ● Active Session
+
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <button
+            onClick={handleLogout}
+            className="
+              w-full
+              flex
+              items-center
+              justify-center
+              gap-2
+
+              bg-red-600
+              hover:bg-red-700
+
+              text-white
+
+              p-3
+              rounded-xl
+
+              transition
+              font-semibold
+            "
+          >
+
+            <LogOut size={18} />
+
+            Logout
+
+          </button>
+
+        </div>
+
+      </aside>
+
+    </>
 
   );
 

@@ -7,7 +7,6 @@ import AnalyticsCards from "../components/AnalyticsCards";
 import DatasetPreview from "../components/DatasetPreview";
 import SummaryStatistics from "../components/SummaryStatistics";
 import DepartmentAnalytics from "../components/DepartmentAnalytics";
-import PatientSatisfaction from "../components/PatientSatisfaction";
 import AIRecommendations from "../components/AIRecommendations";
 
 import SalesBarChart from "../charts/SalesBarChart";
@@ -29,31 +28,47 @@ const Dashboard = () => {
 
       <DashboardLayout>
 
-        <div className="flex justify-center items-center py-20">
+        <div className="flex justify-center items-center py-10 sm:py-20">
 
-          <div className="bg-white shadow-xl rounded-3xl p-12 text-center max-w-xl w-full">
+          <div className="bg-white shadow-xl rounded-3xl p-6 sm:p-12 text-center max-w-xl w-full border border-slate-200">
 
             <div className="flex justify-center mb-6">
 
               <Database
-                size={70}
+                size={60}
                 className="text-blue-600"
               />
 
             </div>
 
-            <h1 className="text-4xl font-bold mb-4 text-slate-800">
+            <h1 className="text-2xl sm:text-4xl font-bold mb-4 text-slate-800">
+
               No Dataset Uploaded
+
             </h1>
 
-            <p className="text-gray-500 text-lg mb-8">
+            <p className="text-gray-500 text-base sm:text-lg mb-8">
+
               Upload a CSV or Excel dataset to unlock analytics,
               insights, charts and AI-powered recommendations.
+
             </p>
 
             <a
               href="/upload"
-              className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-semibold transition"
+              className="
+                inline-block
+                bg-blue-600
+                hover:bg-blue-700
+                text-white
+                px-6
+                sm:px-8
+                py-3
+                sm:py-4
+                rounded-xl
+                font-semibold
+                transition
+              "
             >
               Upload Dataset
             </a>
@@ -75,24 +90,32 @@ const Dashboard = () => {
 
     <DashboardLayout>
 
-      <div>
+      <div className="space-y-6">
 
-        <div className="bg-white rounded-3xl shadow-lg border border-slate-200 p-8 mb-8">
+        {/* HERO */}
 
-          <div className="flex justify-between items-center">
+        <div className="bg-white rounded-3xl shadow-lg border border-slate-200 p-5 sm:p-8">
+
+          <div className="flex flex-col xl:flex-row xl:justify-between xl:items-center gap-6">
 
             <div>
 
-              <p className="text-blue-600 font-semibold mb-2">
+              <p className="text-blue-600 font-semibold mb-2 text-sm sm:text-base">
+
                 AI Business Analytics Platform
+
               </p>
 
-              <h1 className="text-5xl font-bold text-slate-800">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-800">
+
                 Executive Dashboard
+
               </h1>
 
-              <p className="text-slate-500 mt-3">
+              <p className="text-slate-500 mt-3 text-sm sm:text-base">
+
                 Monitor KPIs, analytics, insights and business performance.
+
               </p>
 
             </div>
@@ -101,7 +124,20 @@ const Dashboard = () => {
               href="http://localhost:5000/api/report"
               target="_blank"
               rel="noreferrer"
-              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-2xl font-semibold transition"
+              className="
+                w-full
+                sm:w-auto
+                text-center
+                bg-blue-600
+                hover:bg-blue-700
+                text-white
+                px-6
+                py-4
+                rounded-2xl
+                font-semibold
+                transition
+                shadow-lg
+              "
             >
               Export PDF Report
             </a>
@@ -110,9 +146,13 @@ const Dashboard = () => {
 
         </div>
 
+        {/* KPI CARDS */}
+
         <AnalyticsCards analytics={analytics} />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* CHARTS */}
+
+        <div className="grid grid-cols-1 2xl:grid-cols-2 gap-6">
 
           <SalesBarChart data={chartData} />
 
@@ -120,51 +160,47 @@ const Dashboard = () => {
 
         </div>
 
-        <div className="mt-6">
+        {/* DISTRIBUTION */}
 
-          <DataDistributionChart data={chartData} />
+        <DataDistributionChart
+          data={chartData}
+        />
 
-        </div>
+        {/* DATASET PREVIEW */}
 
-        <div className="mt-6">
+        <DatasetPreview
+          previewData={
+            analytics.preview_data
+          }
+        />
 
-          <DatasetPreview
-            previewData={analytics.preview_data}
-          />
+        {/* SUMMARY STATISTICS */}
 
-        </div>
+        <SummaryStatistics
+          statistics={
+            analytics.summary_statistics
+          }
+        />
 
-        <div className="mt-6">
+        {/* DEPARTMENT ANALYTICS */}
 
-          <SummaryStatistics
-            statistics={analytics.summary_statistics}
-          />
+        {
+          analytics.department_counts && (
 
-        </div>
+            <DepartmentAnalytics
+              departmentCounts={
+                analytics.department_counts
+              }
+            />
 
-        <div className="mt-6">
+          )
+        }
 
-          <DepartmentAnalytics
-            departmentCounts={analytics.department_counts}
-          />
+        {/* AI RECOMMENDATIONS */}
 
-        </div>
-
-        <div className="mt-6">
-
-          <PatientSatisfaction
-            analytics={analytics}
-          />
-
-        </div>
-
-        <div className="mt-6">
-
-          <AIRecommendations
-            analytics={analytics}
-          />
-
-        </div>
+        <AIRecommendations
+          analytics={analytics}
+        />
 
       </div>
 
