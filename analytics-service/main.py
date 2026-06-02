@@ -1,3 +1,4 @@
+import traceback
 from fastapi import FastAPI, UploadFile, File
 import pandas as pd
 import numpy as np
@@ -11,6 +12,7 @@ def home():
 @app.post("/analyze")
 async def analyze_file(file: UploadFile = File(...)):
 
+    try:
     filename = file.filename.lower()
 
     if filename.endswith(".csv"):
@@ -122,6 +124,13 @@ async def analyze_file(file: UploadFile = File(...)):
 
 
 
+    except Exception as e:
 
+        print("ANALYZE ERROR:")
+        traceback.print_exc()
+
+        return {
+            "error": str(e)
+        }
 
 
