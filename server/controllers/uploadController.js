@@ -24,7 +24,7 @@ const uploadFile = async (req, res) => {
     );
 
     const analyticsResponse = await axios.post(
-      "http://127.0.0.1:8000/analyze",
+  "https://analytics-service-kkue.onrender.com/analyze",
       formData,
       {
         headers: formData.getHeaders()
