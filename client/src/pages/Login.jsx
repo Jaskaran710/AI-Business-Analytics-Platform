@@ -1,12 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
-
 import {
   Brain,
   Database,
   BarChart3,
-  Sparkles
+  Sparkles,
+  Eye,
+  EyeOff
 } from "lucide-react";
 
 const Login = () => {
@@ -18,6 +19,8 @@ const Login = () => {
 
   const [password, setPassword] =
     useState("");
+const [showPassword, setShowPassword] =
+  useState(false);
 
   const handleLogin = async () => {
 
@@ -237,15 +240,41 @@ const Login = () => {
                 }
               />
 
-              <input
-                type="password"
-                className="w-full bg-white/5 border border-white/10 text-white rounded-2xl p-4 mb-6"
-                placeholder="Password"
-                value={password}
-                onChange={(e) =>
-                  setPassword(e.target.value)
-                }
-              />
+             <div className="relative mb-6">
+
+  <input
+    type={
+      showPassword
+        ? "text"
+        : "password"
+    }
+    className="w-full bg-white/5 border border-white/10 text-white rounded-2xl p-4 pr-14"
+    placeholder="Password"
+    value={password}
+    onChange={(e) =>
+      setPassword(e.target.value)
+    }
+  />
+
+  <button
+    type="button"
+    onClick={() =>
+      setShowPassword(
+        !showPassword
+      )
+    }
+    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
+  >
+
+    {
+      showPassword
+        ? <EyeOff size={20} />
+        : <Eye size={20} />
+    }
+
+  </button>
+
+</div>
 
               <button
                 onClick={handleLogin}
