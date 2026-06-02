@@ -1,10 +1,15 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
+const { Resend } = require("resend");
 
 const User = require("../models/User");
 
 const router = express.Router();
+const resend = new Resend(
+  process.env.RESEND_API_KEY
+);
 
 router.post("/register", async (req, res) => {
 

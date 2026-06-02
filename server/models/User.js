@@ -18,6 +18,16 @@ const userSchema = new mongoose.Schema({
     required: true
   },
 
+  isVerified: {
+    type: Boolean,
+    default: false
+  },
+
+  verificationToken: {
+    type: String,
+    default: null
+  },
+
   createdAt: {
     type: Date,
     default: Date.now
