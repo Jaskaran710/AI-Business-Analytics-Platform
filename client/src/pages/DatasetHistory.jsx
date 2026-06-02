@@ -314,7 +314,7 @@ const DatasetHistory = () => {
 
                               const response =
                                 await axios.get(
-                                  `http://localhost:5000/api/report/${dataset._id}`,
+                                  `https://ai-business-analytics-api.onrender.com/api/report/${dataset._id}`,
                                   {
                                     responseType: "blob",
                                     headers: {
