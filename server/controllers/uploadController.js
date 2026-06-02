@@ -22,7 +22,8 @@ const uploadFile = async (req, res) => {
       "file",
       fs.createReadStream(req.file.path)
     );
-
+console.log("File uploaded successfully:", req.file.path);
+console.log("Calling analytics service...");
     const analyticsResponse = await axios.post(
   "https://analytics-service-kkue.onrender.com/analyze",
       formData,
@@ -30,7 +31,7 @@ const uploadFile = async (req, res) => {
         headers: formData.getHeaders()
       }
     );
-
+console.log("Analytics service responded successfully");
     await Dataset.create({
 
       userId: req.userId,
@@ -58,7 +59,7 @@ const uploadFile = async (req, res) => {
 
   } catch (error) {
 
-    console.error(error);
+   console.error("UPLOAD ERROR:", error.response?.data || error.message);
 
     res.status(500).json({
       message: "Analytics processing failed"
