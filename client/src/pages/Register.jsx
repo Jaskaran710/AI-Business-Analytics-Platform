@@ -24,6 +24,48 @@ const Register = () => {
     useState("");
 
   const handleRegister = async () => {
+const emailRegex =
+  /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+if (!emailRegex.test(email)) {
+
+  alert(
+    "Please enter a valid email address."
+  );
+
+  return;
+
+}
+
+if (password.length < 8) {
+
+  alert(
+    "Password must be at least 8 characters long."
+  );
+
+  return;
+
+}
+
+if (!/[A-Z]/.test(password)) {
+
+  alert(
+    "Password must contain at least one uppercase letter."
+  );
+
+  return;
+
+}
+
+if (!/[0-9]/.test(password)) {
+
+  alert(
+    "Password must contain at least one number."
+  );
+
+  return;
+
+}
 
     try {
 
