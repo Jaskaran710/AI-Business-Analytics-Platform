@@ -60,7 +60,7 @@ const Upload = () => {
 
       const response =
         await axios.post(
-          "http://localhost:5000/api/upload",
+          "https://ai-business-analytics-api.onrender.com/api/upload",
           formData,
           {
             headers: {

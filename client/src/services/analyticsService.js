@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/upload";
+const API_URL = "https://ai-business-analytics-api.onrender.com/api/upload";
 
 export const uploadDataset = async (file) => {
 

@@ -28,7 +28,7 @@ const DatasetHistory = () => {
 
           const response =
             await axios.get(
-              "http://localhost:5000/api/datasets/history",
+              "https://ai-business-analytics-api.onrender.com/api/datasets/history",
               {
                 headers: {
                   Authorization:

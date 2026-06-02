@@ -121,7 +121,7 @@ const Dashboard = () => {
             </div>
 
             <a
-              href="http://localhost:5000/api/report"
+        https://ai-business-analytics-api.onrender.com/api/report"
               target="_blank"
               rel="noreferrer"
               className="

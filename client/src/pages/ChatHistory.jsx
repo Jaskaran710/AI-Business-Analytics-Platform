@@ -27,7 +27,7 @@ const ChatHistory = () => {
 
           const response =
             await axios.get(
-              "http://localhost:5000/api/ai/history",
+              "https://ai-business-analytics-api.onrender.com/api/ai/history",
               {
                 headers: {
                   Authorization:

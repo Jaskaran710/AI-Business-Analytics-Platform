@@ -25,7 +25,7 @@ const Login = () => {
 
       const response =
         await axios.post(
-          "http://localhost:5000/api/auth/login",
+          "https://ai-business-analytics-api.onrender.com/api/auth/login",
           {
             email,
             password

@@ -65,7 +65,7 @@ const AskData = () => {
 
       const response =
         await axios.post(
-          "http://localhost:5000/api/ai",
+          "https://ai-business-analytics-api.onrender.com/api/ai",
           {
             question: userQuestion,
             analytics
