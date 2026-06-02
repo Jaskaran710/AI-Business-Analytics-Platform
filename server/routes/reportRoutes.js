@@ -1,11 +1,17 @@
 const express = require("express");
 const PDFDocument = require("pdfkit");
-
+const {
+  GoogleGenerativeAI
+} = require("@google/generative-ai");
 const Dataset = require("../models/Dataset");
 const authMiddleware =
   require("../middleware/authMiddleware");
 
 const router = express.Router();
+const genAI =
+  new GoogleGenerativeAI(
+    process.env.GEMINI_API_KEY
+  );
 
 router.get(
   "/:id",
@@ -30,6 +36,75 @@ router.get(
 
       const analytics =
         dataset.analytics || {};
+let executiveSummary = `
+This report analyzes the uploaded dataset and provides key business intelligence insights.
+
+The dataset contains ${
+  analytics.rows || "N/A"
+} records and ${
+  analytics.columns || "N/A"
+} attributes with ${
+  analytics.missing_values || 0
+} missing values.
+
+The data quality appears ${
+  analytics.missing_values === 0
+    ? "excellent"
+    : "acceptable"
+} and is suitable for analytics and reporting.
+
+Key performance indicators and operational trends have been summarized in the sections below to support strategic decision-making.
+`;
+try {
+
+  const model =
+    genAI.getGenerativeModel({
+      model: "gemini-1.5-flash"
+    });
+
+  const prompt = `
+You are a senior business intelligence consultant.
+
+Analyze this dataset summary:
+
+${JSON.stringify(
+  analytics,
+  null,
+  2
+)}
+
+Write an executive summary for a business report.
+
+Requirements:
+
+- 120-180 words
+- Professional tone
+- Mention important trends
+- Mention data quality
+- Mention operational insights
+- Mention risks
+- Mention opportunities
+
+Do not use markdown.
+Do not use bullet points.
+`;
+
+  const result =
+    await model.generateContent(
+      prompt
+    );
+
+  executiveSummary =
+    result.response.text();
+
+} catch (err) {
+
+ console.error(
+  "Gemini Summary Error:",
+  err
+);
+
+}
 
       const doc =
         new PDFDocument({
@@ -111,31 +186,13 @@ doc
       doc.moveDown();
 
       doc.text(
-        `Generated: ${new Date().toLocaleString()}`,
-        {
-          align: "center"
-        }
-      );
+  `Generated: ${new Date().toLocaleString()}`,
+  {
+    align: "center"
+  }
+);
 
-      doc.addPage();
-const addFooter = () => {
-
-  doc.fontSize(9);
-
-  doc.fillColor("#6b7280");
-
-  doc.text(
-    "AI Business Analytics Platform | Developed by Jaskaran Arora",
-    50,
-    760,
-    {
-      align: "center"
-    }
-  );
-
-};
-
-addFooter();
+doc.addPage();
 
       /*
       ==================================
@@ -150,12 +207,15 @@ addFooter();
 
       doc.moveDown();
 
-      doc
-        .fontSize(12)
-        .fillColor("black")
-        .text(
-          `This report analyzes the uploaded dataset and provides business intelligence insights, KPI summaries and AI-generated recommendations.`
-        );
+     doc
+  .fontSize(12)
+  .fillColor("black")
+  .text(
+    executiveSummary,
+    {
+      align: "justify"
+    }
+  );
 
       doc.moveDown(2);
 
@@ -371,17 +431,13 @@ if (
         "4. Use AI Insights page for deeper investigation."
       );
 
-            doc.moveDown(2);
+            doc.moveDown(4);
 
-      doc.addPage();
-
-      doc.moveDown(6);
-
-      doc
-        .fontSize(26)
-        .fillColor("#2563eb")
-        .text(
-          "Thank You",
+doc
+  .fontSize(26)
+  .fillColor("#2563eb")
+  .text(
+    "Thank You",
           {
             align: "center"
           }

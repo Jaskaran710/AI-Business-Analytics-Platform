@@ -5,7 +5,7 @@ const connectDB = async () => {
   try {
 
     await mongoose.connect(
-      "mongodb://127.0.0.1:27017/ai_analytics_platform"
+      process.env.MONGO_URI
     );
 
     console.log(
