@@ -36,6 +36,25 @@ if (!emailRegex.test(email)) {
   return;
 
 }
+const allowedDomains = [
+  "gmail.com",
+  "outlook.com",
+  "hotmail.com",
+  "yahoo.com"
+];
+
+const domain =
+  email.split("@")[1]?.toLowerCase();
+
+if (!allowedDomains.includes(domain)) {
+
+  alert(
+    "Please use a valid email."
+  );
+
+  return;
+
+}
 
 if (password.length < 8) {
 
@@ -316,7 +335,7 @@ if (!/[0-9]/.test(password)) {
 
               <input
                 type="password"
-                className="w-full bg-white/5 border border-white/10 text-white rounded-2xl p-4 mb-6"
+                className="w-full bg-white/5 border border-white/10 text-white rounded-2xl p-4"
                 placeholder="Password"
                 value={password}
                 onChange={(e) =>
@@ -325,7 +344,10 @@ if (!/[0-9]/.test(password)) {
                   )
                 }
               />
-
+<p className="text-xs text-slate-400 mt-2">
+  Password must be at least 8 characters long and contain:
+  1 uppercase letter and 1 number.
+</p>
               <button
                 onClick={handleRegister}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-2xl font-semibold transition"
